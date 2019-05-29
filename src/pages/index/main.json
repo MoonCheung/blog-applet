@@ -1,7 +1,7 @@
 {
+  "navigationBarTitleText": "推荐",
   "usingComponents": {
-    "van-button": "../../vant-weapp/dist/button/index",
-    "van-popup": "../../vant-weapp/dist/popup/index",
-    "van-field": "../../vant-weapp/dist/field/index"
+    "van-tab": "../../vant-weapp/dist/tab/index",
+    "van-tabs": "../..//vant-weapp/dist/tabs/index"
   }
 }

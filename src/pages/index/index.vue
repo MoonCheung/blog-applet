@@ -1,58 +1,50 @@
 <template>
   <view>
-    <view class="margin-tb-sm text-center">
-      <button class="cu-btn round bg-red button-hover"
-              role="button"
-              aria-label=""
-              aria-disabled="false">{{motto}}</button>
-    </view>
-    <view class="padding flex flex-direction">
-      <button class="cu-btn bg-red margin-tb-sm lg"
-              role="button"
-              aria-label=""
-              aria-disabled="false">{{motto1}}</button>
+    <van-tabs custom-class="tab-header"
+              swipeable
+              animated
+              color="blue"
+              swipeable="true">
+      <van-tab title="标签1">
+        <view class="cu-item shadow">
 
-    </view>
-    <van-button type="primary">按钮</van-button>
-    <van-cell-group>
-      <van-field :value="value"
-                 placeholder="请输入用户名"
-                 :border="false"
-                 @change="onChange" />
-    </van-cell-group>
+        </view>
+      </van-tab>
+      <van-tab title="标签2">内容 2</van-tab>
+      <van-tab title="标签3">内容 3</van-tab>
+      <van-tab title="标签5">内容 5</van-tab>
+      <van-tab title="标签6">内容 6</van-tab>
+      <van-tab title="标签7">内容 7</van-tab>
+    </van-tabs>
   </view>
 </template>
 
 <script>
+import { getAllArts } from '@/api/article'
+
 export default {
   data () {
     return {
-      motto: 'ColorUI',
-      motto1: '块级ColorUI',
-      userInfo: {
-        nickName: 'mpvue',
-        avatarUrl: 'http://mpvue.com/assets/logo.png'
-      },
-      value: ''
     }
   },
+  onLoad () {
+    getAllArts().then(res => {
+      console.log(res)
+    })
+  },
   methods: {
-    bindViewTap () {
-      const url = '../logs/main'
-      if (mpvuePlatform === 'wx') {
-        mpvue.switchTab({ url })
-      } else {
-        mpvue.navigateTo({ url })
-      }
-    },
-    clickHandle (ev) {
-      console.log('clickHandle:', ev)
-      // throw {message: 'custom test'}
-    },
-    onChange (e) {
-      // event.detail 为当前输入的值
-      console.log(e.target);
-    }
+    // bindViewTap () {
+    //   const url = '../logs/main'
+    //   if (mpvuePlatform === 'wx') {
+    //     mpvue.switchTab({ url })
+    //   } else {
+    //     mpvue.navigateTo({ url })
+    //   }
+    // },
+    // clickHandle (ev) {
+    //   console.log('clickHandle:', ev)
+    //   // throw {message: 'custom test'}
+    // },
   },
 
   created () {
@@ -61,5 +53,8 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss">
+.tab-header {
+  top: -1px;
+}
 </style>
