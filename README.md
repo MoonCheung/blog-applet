@@ -1,5 +1,10 @@
 # mpvue-applet
 
+<div align=center><a href="https://github.com/MoonCheung/vue-applet/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/MoonCheung/vue-applet.svg?style=flat-square"></a>
+<a href="https://github.com/MoonCheung/vue-applet/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/MoonCheung/vue-applet.svg?style=flat-square"></a>
+<a href="https://github.com/MoonCheung/vue-applet/network"><img alt="GitHub forks" src="https://img.shields.io/github/forks/MoonCheung/vue-applet.svg?style=flat-square"></a>
+<a href="https://github.com/MoonCheung/vue-applet/blob/master/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/MoonCheung/vue-applet.svg?style=flat-square"></a></div>
+
 这是 `mpvue` 博客小程序由 `vue`,`vant-weapp`,`ColorUI` 构建应用程序开发的 <br/>
 该博客小程序的 API 接口需要搭配 node 服务器才能运行,想运行时,需要来安装 node 服务器 <br/>
 
