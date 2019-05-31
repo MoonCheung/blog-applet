@@ -4,7 +4,7 @@
  * @Github: https://github.com/MoonCheung
  * @Date: 2019-05-28 15:39:23
  * @LastEditors: MoonCheung
- * @LastEditTime: 2019-05-29 21:09:43
+ * @LastEditTime: 2019-05-31 00:38:25
  */
 
 import {
@@ -19,7 +19,7 @@ const fly = new Fly()
 // 设置超时
 fly.config.timeout = 7000
 // 定义公共配置
-fly.config.headers = { 'x-tag': 'flyio' }
+// fly.config.headers = { 'x-tag': 'flyio' }
 fly.config.baseURL = 'http://127.0.0.1:3030/api/'
 
 // 添加请求拦截器
