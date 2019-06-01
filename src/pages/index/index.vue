@@ -10,9 +10,9 @@
           <view class="cu-item">
             <view class="cu-list menu-avatar comment solids-top">
               <view class="cu-item cardList radius shadow shadow-lg bg-white"
-                    @click="goTitleDetail"
-                    v-for="(item, index) in artListdata"
-                    :key="index">
+                    v-for="(item,index) in artListdata"
+                    :key="index"
+                    @click="goTitleDetail(item.id)">
                 <view class="cu-avatar round">
                   <image class="cu-avatar round"
                          :src="item.myAuthor.avatar" />
@@ -28,22 +28,19 @@
                       <text class="text-sm">发布于{{item.cdate}}</text>
                     </view>
                     <view class="text-myicon">
-                      <text class="cuIcon-tagfill text-gray text-sm">&nbsp;{{item.catg}}</text>
-                      <text class="cuIcon-attentionfill text-gray margin-left-sm text-sm">&nbsp;1次围观</text>
+                      <text class="cuIcon-file text-gray text-sm">&nbsp;{{item.catg}}</text>
+                      <text class="cuIcon-attention text-gray margin-left-sm text-sm">&nbsp;1次围观</text>
                     </view>
                   </view>
                 </view>
               </view>
-
             </view>
           </view>
         </view>
+        <view class="cu-load bg-gray"
+              :class="moreLoading"></view>
       </van-tab>
       <van-tab title="标签2">内容 2</van-tab>
-      <van-tab title="标签3">内容 3</van-tab>
-      <van-tab title="标签5">内容 5</van-tab>
-      <van-tab title="标签6">内容 6</van-tab>
-      <van-tab title="标签7">内容 7</van-tab>
     </van-tabs>
   </view>
 </template>
@@ -52,21 +49,59 @@
 import { getAllArts } from '@/api/index'
 
 export default {
+  name: "ArtList",
   data () {
     return {
-      artListdata: []
+      artListdata: [],
+      page: 0,
+      more: true
     }
   },
-  onLoad () {
-    getAllArts().then(res => {
-      let self = this;
-      self.artListdata = res.artList
-    })
+  onReachBottom () {
+    let self = this;
+    if (!self.more) {
+      return false
+    }
+    self.page = self.page + 1;
+    self.getArtsList();
+  },
+  // TODO: 除特殊情况之外，不建议使用小程序生命周期钩子
+  computed: {
+    moreLoading () {
+      return this.more ? 'loading' : 'over'
+    }
+  },
+  mounted () {
+    this.getArtsList(true);
   },
   methods: {
-    goTitleDetail (event) {
-      console.log(event)
-    }
+    //获取文章列表API
+    getArtsList (init) {
+      if (init === true) {
+        this.page = 0;
+        this.more = true
+      }
+      wx.showNavigationBarLoading()
+      getAllArts({ curPage: this.page }).then(res => {
+        if (res.artList.length <= 0) {
+          this.more = false
+        }
+        if (init) {
+          this.artListdata = res.artList;
+        } else {
+          // 下拉刷新，不能直接覆盖books,而是累加
+          this.artListdata = this.artListdata.concat(res.artList);
+        }
+        wx.hideNavigationBarLoading();
+      })
+    },
+    //获取每个Title详情
+    goTitleDetail (val) {
+      this.$router.push({
+        path: '/pages/detail/main',
+        query: { id: val }
+      })
+    },
     // bindViewTap () {
     //   const url = '../logs/main'
     //   if (mpvuePlatform === 'wx') {
@@ -80,10 +115,6 @@ export default {
     //   // throw {message: 'custom test'}
     // },
   },
-
-  created () {
-    // let app = getApp()
-  }
 }
 </script>
 
@@ -103,7 +134,6 @@ export default {
 }
 .solids-top {
   background-color: #f1f1f1;
-  top: -0.5px;
 
   .cardList {
     &:first-of-type {

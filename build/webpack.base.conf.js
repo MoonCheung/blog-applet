@@ -70,7 +70,8 @@ let baseWebpackConfig = {
       },
       {
         test: /\.js$/,
-        include: [resolve('src'), resolve('test')],
+        // TODO: 安装mpvue-wxparse模块之后，来这里添加includu的数组里面/mpvue-wxparse/
+        include: [resolve('src'), resolve('test'), /mpvue-wxparse/],
         use: [
           'babel-loader',
           {
@@ -130,7 +131,7 @@ let baseWebpackConfig = {
         ignore: ['.*']
       },
       {
-        // 来自Vant Weapp UI组件库
+        // TODO:来自Vant Weapp UI组件库
         from: path.resolve(__dirname, '../node_modules/vant-weapp/dist'),
         to: path.resolve(config.build.assetsRoot, 'vant-weapp/dist'),
         ignore: ['.*']

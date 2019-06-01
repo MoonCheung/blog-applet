@@ -1,11 +1,17 @@
 {
-  "pages": ["pages/index/main", "pages/logs/main", "pages/counter/main"],
+  "pages": [
+    "pages/index/main",
+    "pages/detail/main",
+    "pages/logs/main",
+    "pages/counter/main"
+  ],
   "window": {
     "backgroundColor": "#FFF",
     "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#FFF",
     "navigationBarTitleText": "MoonBlogs",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "black",
+    "onReachBottomDistance": 50
   },
   "tabBar": {
     "color": "#999",
