@@ -8,8 +8,8 @@
               <text class="text-black">{{title}}</text>
             </view>
             <view class="text-sm text-grey">
-              <text class="cuIcon-countdown">{{cdate}}</text>
-              <text class="cuIcon-file">{{catg}}</text>
+              <text class="cuIcon-countdown">{{cdate}}&nbsp;</text>
+              <text class="cuIcon-file">{{catg}}&nbsp;</text>
               <text class="cuIcon-attention">60次浏览</text>
             </view>
           </view>
@@ -22,7 +22,22 @@
           </view>
         </view>
         <view class="cu-item">
-          <text class="cu-tag radius">{{tag}}</text>
+          <text v-for="(item, index) in tag"
+                :key="index">
+            <text class="cu-tag radius">{{item}}</text>&nbsp;</text>
+        </view>
+        <view class="cu-item">
+          <view class="cu-bar btn-group">
+            <view class="cu-btn round lg">
+              <text class="text-gray cuIcon-appreciate lg"></text>
+            </view>
+          </view>
+        </view>
+        <view class="cu-item">
+          <view class="cu-bar btn-group">
+            <button class="cu-btn bg-blue shadow-blur round">复制网址</button>
+            <button class="cu-btn bg-blue shadow-blur round">分享</button>
+          </view>
         </view>
       </view>
     </view>
@@ -60,10 +75,10 @@ export default {
           this.title = res.ArtDeilData.title
           this.catg = res.ArtDeilData.catg
           this.content = res.ArtDeilData.content
-          this.tag = res.ArtDeilData.tag
-          let myDate = formatTime(res.ArtDeilData.cdate)
-          console.log(myDate);
-
+          this.tag = res.ArtDeilData.tag;
+          let myDate = new Date(res.ArtDeilData.cdate)
+          let formatDate = formatTime(myDate).split(' ')[0];
+          this.cdate = formatDate;
         }
       })
     }

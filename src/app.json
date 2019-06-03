@@ -2,7 +2,7 @@
   "pages": [
     "pages/index/main",
     "pages/detail/main",
-    "pages/logs/main",
+    "pages/me/main",
     "pages/counter/main"
   ],
   "window": {
@@ -25,8 +25,8 @@
         "selectedIconPath": "static/tabs/home-active.png"
       },
       {
-        "text": "订单",
-        "pagePath": "pages/logs/main",
+        "text": "关于",
+        "pagePath": "pages/me/main",
         "iconPath": "static/tabs/orders.png",
         "selectedIconPath": "static/tabs/orders-active.png"
       }
@@ -38,8 +38,8 @@
         "activeIcon": "static/tabs/home-active.png"
       },
       {
-        "name": "订单",
-        "pagePath": "pages/logs/main",
+        "name": "关于",
+        "pagePath": "pages/me/main",
         "icon": "static/tabs/orders.png",
         "activeIcon": "static/tabs/orders-active.png"
       }
