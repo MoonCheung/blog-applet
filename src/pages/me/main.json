@@ -1,3 +1,4 @@
 {
-  "navigationBarTitleText": "关于"
+  "navigationBarTitleText": "关于",
+  "navigationStyle": "custom"
 }

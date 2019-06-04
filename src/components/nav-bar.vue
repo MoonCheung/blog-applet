@@ -80,7 +80,6 @@ export default {
         };
         // 获取菜单按钮（右上角胶囊按钮）的布局位置信息
         let custom = wx.getMenuButtonBoundingClientRect();
-        console.log(custom)
         self.Custom = custom
         self.CustomBar = custom.bottom + custom.top - system.statusBarHeight;
       }
