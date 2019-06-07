@@ -14,9 +14,9 @@
     "onReachBottomDistance": 50
   },
   "tabBar": {
-    "color": "#999",
+    "color": "#aaa",
     "backgroundColor": "#fafafa",
-    "selectedColor": "#333",
+    "selectedColor": "#03A9F4",
     "borderStyle": "white",
     "list": [{
         "text": "首页",
@@ -27,8 +27,8 @@
       {
         "text": "关于",
         "pagePath": "pages/me/main",
-        "iconPath": "static/tabs/orders.png",
-        "selectedIconPath": "static/tabs/orders-active.png"
+        "iconPath": "static/tabs/me.png",
+        "selectedIconPath": "static/tabs/me-active.png"
       }
     ],
     "items": [{
@@ -40,8 +40,8 @@
       {
         "name": "关于",
         "pagePath": "pages/me/main",
-        "icon": "static/tabs/orders.png",
-        "activeIcon": "static/tabs/orders-active.png"
+        "icon": "static/tabs/me.png",
+        "activeIcon": "static/tabs/me-active.png"
       }
     ],
     "position": "bottom"

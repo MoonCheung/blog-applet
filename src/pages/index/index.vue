@@ -1,11 +1,14 @@
 <template>
   <view>
-    <van-tabs custom-class="tab-header"
+    <van-tabs ref="change"
+              custom-class="tab-header"
               swipeable
               animated
-              color="blue"
-              swipeable="true">
-      <van-tab title="全部">
+              color="#1976D2"
+              swipeable="true"
+              :active="active"
+              @change.prevent="chgApptCatg($event)">
+      <van-tab :title="allTab">
         <view class="cu-card dynamic">
           <view class="cu-item">
             <view class="cu-list menu-avatar comment solids-top">
@@ -40,30 +43,95 @@
         <view class="cu-load bg-gray"
               :class="moreLoading"></view>
       </van-tab>
-      <van-tab title="标签2">内容 2</van-tab>
+      <van-tab v-for="(item,index) in tabbar"
+               :title="item.categoryname"
+               :key="index"
+               :ref="tab">
+        <view class="cu-card dynamic">
+          <view class="cu-item">
+            <view class="cu-list menu-avatar comment solids-top">
+
+              <view class="cu-item cardList radius shadow shadow-lg bg-white"
+                    v-for="(apptItem, apptItemIndex) in apptartdata"
+                    :key="apptItemIndex">
+                <view class="cu-avatar round">
+                  <image class="cu-avatar round"
+                         :src="apptItem.apptAuthor.avatar" />
+                </view>
+                <view class="content">
+                  <view class="content-header">
+                    <text class="text-grey text-sm">{{apptItem.apptAuthor.name}}</text>
+                  </view>
+                  <view class="text-content text-black text-bold text-df title">{{apptItem.title}}</view>
+                  <view class="text-gray text-content bg-white text-mycut">{{apptItem.desc}}</view>
+                  <view class="margin-top-sm flex justify-between">
+                    <view class="text-gray text-df">
+                      <text class="text-sm">发布于{{apptItem.cdate}}</text>
+                    </view>
+                    <view class="text-myicon">
+                      <text class="cuIcon-file text-gray text-sm">&nbsp;{{apptItem.catg}}</text>
+                      <text class="cuIcon-attention text-gray margin-left-sm text-sm">&nbsp;1次围观</text>
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="cu-load bg-gray"
+              :class="moreLoading"></view>
+      </van-tab>
     </van-tabs>
   </view>
 </template>
 
 <script>
-import { getAllArts } from '@/api/index'
+import { getAllArts, getCatgLists, getApptCatgLists } from '@/api/index'
 
 export default {
   name: "ArtList",
   data () {
     return {
       artListdata: [],
+      apptartdata: [],
       page: 0,
-      more: true
+      allTab: "全部",
+      more: false,
+      tabbar: [],
+      catgname: '',
+      active: 0,
     }
   },
+  /**
+   * 页面上拉触底事件的处理函数
+   */
   onReachBottom () {
     let self = this;
     if (!self.more) {
-      return false
+      return true;
     }
-    self.page = self.page + 1;
-    self.getArtsList();
+    switch (self.catgname) {
+      case '前端':
+        self.page += 1;
+        self.getApptCatg();
+        break;
+      case '诗与远方':
+        self.page += 1
+        self.getApptCatg();
+        break;
+      case '技术心得':
+        self.page += 1
+        self.getApptCatg();
+        break;
+      case '后端':
+        self.page += 1
+        self.getApptCatg();
+        break;
+      default:
+        self.page += 1;
+        self.getArtsList();
+        break;
+    }
   },
   // TODO: 除特殊情况之外，不建议使用小程序生命周期钩子
   computed: {
@@ -72,28 +140,73 @@ export default {
     }
   },
   mounted () {
-    this.getArtsList(true);
+    this.getAllCatg();
+    this.getArtsList(this.allTab, true);
   },
   methods: {
     //获取文章列表API
-    getArtsList (init) {
-      if (init === true) {
-        this.page = 0;
-        this.more = true
+    getArtsList (chgcatg, init) {
+      let self = this;
+      if (init === true || chgcatg === '全部') {
+        self.page = 0;
+        self.more = true
       }
       wx.showNavigationBarLoading()
-      getAllArts({ curPage: this.page }).then(res => {
-        if (res.artList.length <= 0) {
-          this.more = false
+      getAllArts({ allPage: self.page }).then(res => {
+        if (res.artList.length <= 1) {
+          self.more = false
         }
-        if (init) {
-          this.artListdata = res.artList;
+        if (init === true && chgcatg !== '全部') {
+          self.artListdata = res.artList;
         } else {
           // 下拉刷新，不能直接覆盖books,而是累加
-          this.artListdata = this.artListdata.concat(res.artList);
+          self.artListdata = self.artListdata.concat(res.artList);
+
         }
         wx.hideNavigationBarLoading();
       })
+
+    },
+    //获取所有分类列表API
+    getAllCatg () {
+      getCatgLists().then(res => {
+        if (res.code === 1) {
+          this.tabbar = res.result //Object
+        }
+      })
+    },
+    //获取指定tab标签页文章列表
+    getApptCatg (chgcatg, init) {
+      let self = this;
+      if (init === true) {
+        self.page = 0
+        self.more = true
+      }
+      let param = {
+        catg: chgcatg,
+        curPage: self.page
+      }
+      wx.showNavigationBarLoading()
+      getApptCatgLists(param).then(res => {
+        if (res.apptArtList.length <= 1) {
+          self.more = false
+        }
+        if (init) {
+          self.apptartdata = res.apptArtList
+        }
+        else {
+          // 下拉刷新，不能直接覆盖books,而是累加
+          self.apptartdata = self.apptartdata.concat(res.apptArtList);
+        }
+        wx.hideNavigationBarLoading();
+      })
+    },
+    //切换指定tab标签页
+    chgApptCatg (event) {
+      let self = this;
+      let catg = event.mp.detail.title
+      self.catgname = catg
+      self.getApptCatg(catg, true);
     },
     //获取每个Title详情
     goTitleDetail (val) {
@@ -102,6 +215,7 @@ export default {
         query: { id: val }
       })
     },
+    // 这是mpvue官方DEMO例子
     // bindViewTap () {
     //   const url = '../logs/main'
     //   if (mpvuePlatform === 'wx') {
