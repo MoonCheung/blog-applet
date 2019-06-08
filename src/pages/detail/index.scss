@@ -1,0 +1,260 @@
+/*
+ * @Description: 点赞特效以及其他样式效果
+ * @Author: MoonCheung
+ * @Github: https://github.com/MoonCheung
+ * @Date: 2019-06-08 15:04:02
+ * @LastEditors: MoonCheung
+ * @LastEditTime: 2019-06-08 19:56:39
+ */
+
+.my-item {
+  padding-top: 10px;
+}
+
+// .cu-list.menu {
+//   &>.cu-item {
+//     padding-left: 0;
+//     padding-right: 15px;
+//   }
+// }
+
+//富文本样式
+.my-wxParse {
+  .p {
+    margin: 0;
+    // margin-bottom: 1em
+  }
+
+  .pre {
+    margin: 0;
+    margin-bottom: 1em
+  }
+}
+
+//点赞特效
+.my-liked {
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  position: relative;
+  height: 70px;
+  padding: 15px;
+
+  .svg.like {
+    height: 125px;
+    width: 125px;
+    margin: 0 auto;
+    /* 可叠加 */
+    z-index: 10;
+
+    border-radius: 100%;
+    transform: scale(0.3);
+    -webkit-transform: scale(0.3);
+    transform-origin: 50% 50%;
+    -webkit-transform-origin: 50% 50%;
+    box-shadow: 0 0 250px rgba(0, 0, 0, 0.4);
+    background: #fff;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='110' width='110' viewBox='0 0 320 320' class='fly fly-1'%3E %3Cpath class='path' d='M 160 145 c 15 -90 170 -20 0 90 m 0 -90 c -15 -90 -170 -20 0 90' fill='%23f0f0f0' /%3E%3C/svg%3E");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  /*飞心*/
+
+  /* .svg.fly {
+  position: fixed;
+  top: calc(50vh - 55px);
+  left: calc(50vw - 55px);
+  fill: #ff4f94;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='80' width='80' viewBox='0 0 320 320' class='fly fly-1'%3E %3Cpath class='path' d='M 160 145 c 15 -90 170 -20 0 90 m 0 -90 c -15 -90 -170 -20 0 90' fill='%23ff4f94' /%3E%3C/svg%3E");
+} */
+
+  /*上小心*/
+  .svg.h {
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    z-index: 8;
+
+    fill: #189eff;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='40' width='40' viewBox='0 0 320 320' class='h h-1'%3E %3Cpath class='path' d='M 160 145 c 15 -90 170 -20 0 90 m 0 -90 c -15 -90 -170 -20 0 90' fill='%23189eff' /%3E%3C/svg%3E");
+  }
+
+  /*上斜心*/
+  .svg.h.h-5,
+  .svg.h.h-6,
+  .svg.h.h-7,
+  .svg.h.h-8 {
+    fill: #ffd627;
+    background-image: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' height='40' width='40' viewBox='0 0 320 320' class='h h-5'%3E %3Cpath class='path' d='M 160 145 c 15 -90 170 -20 0 90 m 0 -90 c -15 -90 -170 -20 0 90' fill='%23ffd627' /%3E%3C/svg%3E");
+  }
+}
+
+.my-liked.liked {
+  .svg.like {
+    -webkit-animation: blink 1s forwards;
+    animation: blink 1s forwards;
+  }
+
+  /*上小心*/
+  .svg.h {
+    transition: margin cubic-bezier(0.165, 0.84, 0.44, 1) 5.4s, fill 0.2s 1s,
+      opacity 0.2s 1.2s, -webkit-transform 0.2s 1s;
+    transition: margin cubic-bezier(0.165, 0.84, 0.44, 1) 5.4s,
+      transform 0.2s 1s, fill 0.2s 1s, opacity 0.2s 1.2s;
+    transition: margin cubic-bezier(0.165, 0.84, 0.44, 1) 5.4s,
+      transform 0.2s 1s, fill 0.2s 1s, opacity 0.2s 1.2s,
+      -webkit-transform 0.2s 1s;
+    opacity: 0;
+    fill: #ffd627;
+    background-image: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' height='40' width='40' viewBox='0 0 320 320' class='h h-5'%3E %3Cpath class='path' d='M 160 145 c 15 -90 170 -20 0 90 m 0 -90 c -15 -90 -170 -20 0 90' fill='%23ffd627' /%3E%3C/svg%3E");
+  }
+
+  /*上斜心*/
+  .svg.h.h-5,
+  .svg.h.h-6,
+  .svg.h.h-7,
+  .svg.h.h-8 {
+    /* 暂时研究 */
+    /* -webkit-transform: scale(1.5);
+  transform: scale(1.5); */
+    fill: #189eff;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='40' width='40' viewBox='0 0 320 320' class='h h-1'%3E %3Cpath class='path' d='M 160 145 c 15 -90 170 -20 0 90 m 0 -90 c -15 -90 -170 -20 0 90' fill='%23189eff' /%3E%3C/svg%3E");
+  }
+
+  .svg.h.h-1 {
+    margin-top: -100px;
+  }
+
+  .svg.h.h-2 {
+    margin-left: 100px;
+  }
+
+  .svg.h.h-3 {
+    margin-top: 100px;
+  }
+
+  .svg.h.h-4 {
+    margin-left: -100px;
+  }
+
+  .svg.h.h-5 {
+    margin-top: -60px;
+    margin-left: 60px;
+  }
+
+  .svg.h.h-6 {
+    margin-top: 60px;
+    margin-left: 60px;
+  }
+
+  .svg.h.h-7 {
+    margin-top: -60px;
+    margin-left: -60px;
+  }
+
+  .svg.h.h-8 {
+    margin-top: 60px;
+    margin-left: -60px;
+  }
+}
+
+@-webkit-keyframes blink {
+  10% {
+    -webkit-transform: scale(0.42);
+    transform: scale(0.42);
+    background: #8815b7;
+  }
+
+  100% {
+    background: #e01f4f;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='80' width='80' viewBox='0 0 320 320' class='fly fly-1'%3E %3Cpath class='path' d='M 160 145 c 15 -90 170 -20 0 90 m 0 -90 c -15 -90 -170 -20 0 90' fill='%23f0f0f0' /%3E%3C/svg%3E");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+}
+
+@keyframes blink {
+  10% {
+    -webkit-transform: scale(0.42);
+    transform: scale(0.42);
+    background: #8815b7;
+  }
+
+  100% {
+    background: #e01f4f;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='80' width='80' viewBox='0 0 320 320' class='fly fly-1'%3E %3Cpath class='path' d='M 160 145 c 15 -90 170 -20 0 90 m 0 -90 c -15 -90 -170 -20 0 90' fill='%23f0f0f0' /%3E%3C/svg%3E");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+}
+
+@-webkit-keyframes fly-1 {
+  25% {
+    margin: -100px 0 0 100px;
+  }
+
+  75% {
+    margin: 100px 0 0 -100px;
+    z-index: 5;
+  }
+
+  100% {
+    z-index: 11;
+  }
+}
+
+@keyframes fly-1 {
+  25% {
+    margin: -100px 0 0 100px;
+  }
+
+  75% {
+    margin: 100px 0 0 -100px;
+    z-index: 5;
+  }
+
+  100% {
+    z-index: 11;
+  }
+}
+
+@-webkit-keyframes fly-2 {
+  25% {
+    margin: -100px 0 0 -100px;
+  }
+
+  75% {
+    margin: 100px 0 0 100px;
+    z-index: 5;
+  }
+
+  100% {
+    z-index: 11;
+  }
+}
+
+@keyframes fly-2 {
+  25% {
+    margin: -100px 0 0 -100px;
+  }
+
+  75% {
+    margin: 100px 0 0 100px;
+    z-index: 5;
+  }
+
+  100% {
+    z-index: 11;
+  }
+}

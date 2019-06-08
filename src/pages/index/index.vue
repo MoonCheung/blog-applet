@@ -50,10 +50,10 @@
         <view class="cu-card dynamic">
           <view class="cu-item">
             <view class="cu-list menu-avatar comment solids-top">
-
               <view class="cu-item cardList radius shadow shadow-lg bg-white"
                     v-for="(apptItem, apptItemIndex) in apptartdata"
-                    :key="apptItemIndex">
+                    :key="apptItemIndex"
+                    @click="goApptTitleDetail(apptItem.id)">
                 <view class="cu-avatar round">
                   <image class="cu-avatar round"
                          :src="apptItem.apptAuthor.avatar" />
@@ -152,6 +152,7 @@ export default {
         self.more = true
       }
       wx.showNavigationBarLoading()
+      // console.log(self.page); //打印页数
       getAllArts({ allPage: self.page }).then(res => {
         if (res.artList.length <= 1) {
           self.more = false
@@ -187,6 +188,7 @@ export default {
         curPage: self.page
       }
       wx.showNavigationBarLoading()
+      // console.log(param);//打印页数及指定标签栏
       getApptCatgLists(param).then(res => {
         if (res.apptArtList.length <= 1) {
           self.more = false
@@ -206,6 +208,7 @@ export default {
       let self = this;
       let catg = event.mp.detail.title
       self.catgname = catg
+      self.getArtsList(catg, true);
       self.getApptCatg(catg, true);
     },
     //获取每个Title详情
@@ -215,6 +218,15 @@ export default {
         query: { id: val }
       })
     },
+    //获取指定标签栏每个Title详情
+    goApptTitleDetail (val) {
+      this.$router.push({
+        path: '/pages/detail/main',
+        query: { id: val }
+      })
+    }
+
+
     // 这是mpvue官方DEMO例子
     // bindViewTap () {
     //   const url = '../logs/main'
