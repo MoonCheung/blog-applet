@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import { getArtDetls } from '@/api/index'
+// import { getArtDetls } from '@/api/index'
 import { formatTime } from '@/utils/index'
 import wxParse from 'mpvue-wxparse'
 import 'mpvue-wxparse/src/wxParse.css'
@@ -104,9 +104,10 @@ export default {
     this.getArtDetl();
   },
   methods: {
+    //指定ID文章详情接口
     getArtDetl () {
       let id = this.$route.query.id
-      getArtDetls({ id }).then(res => {
+      this.$store.dispatch('article/getArtDetls', { id }).then(res => {
         if (res.code === 1) {
           this.shareId = res.ArtDeilData.id
           this.title = res.ArtDeilData.title

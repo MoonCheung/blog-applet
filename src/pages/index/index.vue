@@ -86,8 +86,6 @@
 </template>
 
 <script>
-import { getAllArts, getCatgLists, getApptCatgLists } from '@/api/index'
-
 export default {
   name: "ArtList",
   data () {
@@ -137,7 +135,7 @@ export default {
   computed: {
     moreLoading () {
       return this.more ? 'loading' : 'over'
-    }
+    },
   },
   mounted () {
     this.getAllCatg();
@@ -153,7 +151,10 @@ export default {
       }
       wx.showNavigationBarLoading()
       // console.log(self.page); //打印页数
-      getAllArts({ allPage: self.page }).then(res => {
+      let param = {
+        allPage: self.page
+      }
+      self.$store.dispatch('article/getAllArts', param).then(res => {
         if (res.artList.length <= 1) {
           self.more = false
         }
@@ -166,17 +167,18 @@ export default {
         }
         wx.hideNavigationBarLoading();
       })
-
     },
-    //获取所有分类列表API
+
+    // 获取所有tab标签页API
     getAllCatg () {
-      getCatgLists().then(res => {
+      this.$store.dispatch('article/getCatgLists').then(res => {
         if (res.code === 1) {
-          this.tabbar = res.result //Object
+          this.tabbar = res.result
         }
       })
     },
-    //获取指定tab标签页文章列表
+
+    //获取指定tab标签页文章列表API
     getApptCatg (chgcatg, init) {
       let self = this;
       if (init === true) {
@@ -189,7 +191,7 @@ export default {
       }
       wx.showNavigationBarLoading()
       // console.log(param);//打印页数及指定标签栏
-      getApptCatgLists(param).then(res => {
+      self.$store.dispatch('article/getApptCatgLists', param).then(res => {
         if (res.apptArtList.length <= 1) {
           self.more = false
         }
@@ -203,7 +205,7 @@ export default {
         wx.hideNavigationBarLoading();
       })
     },
-    //切换指定tab标签页
+    // //切换指定tab标签页
     chgApptCatg (event) {
       let self = this;
       let catg = event.mp.detail.title
@@ -211,7 +213,7 @@ export default {
       self.getArtsList(catg, true);
       self.getApptCatg(catg, true);
     },
-    //获取每个Title详情
+    // //获取每个Title详情
     goTitleDetail (val) {
       this.$router.push({
         path: '/pages/detail/main',
