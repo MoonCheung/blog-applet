@@ -171,7 +171,7 @@ export default {
 
     // 获取所有tab标签页API
     getAllCatg () {
-      this.$store.dispatch('article/getCatgLists').then(res => {
+      this.$store.dispatch('catg/getCatgLists').then(res => {
         if (res.code === 1) {
           this.tabbar = res.result
         }

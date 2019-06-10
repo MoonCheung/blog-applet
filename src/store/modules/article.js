@@ -2,16 +2,12 @@ import api from '@/api'
 
 const state = {
   // 文章列表
-  tabbar: {},
   allList: {},
   apptList: {},
   apptDeil: {}
 }
 
 const mutations = {
-  GET_CATG_LIST (state, data) {
-    state.tabbar = data
-  },
   POST_ALL_ARTICLE (state, data) {
     state.allList = data
   },
@@ -24,20 +20,6 @@ const mutations = {
 }
 
 const actions = {
-  // 获取所有tab标签页
-  getCatgLists ({ commit, state }) {
-    return new Promise((resolve, reject) => {
-      api
-        .getCatgLists()
-        .then(res => {
-          commit('GET_CATG_LIST', res.result)
-          resolve(res)
-        })
-        .catch(err => {
-          reject(err)
-        })
-    })
-  },
   // 获取文章列表API
   getAllArts ({ commit }, param) {
     return new Promise((resolve, reject) => {
