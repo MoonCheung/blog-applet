@@ -10,7 +10,7 @@
             <view class="text-sm text-grey">
               <text class="cuIcon-countdown margin-right-xs">&nbsp;{{cdate}}</text>
               <text class="cuIcon-file margin-right-xs">&nbsp;{{catg}}</text>
-              <text class="cuIcon-attention">&nbsp;60次浏览</text>
+              <text class="cuIcon-attention">&nbsp;{{pv}}次浏览</text>
             </view>
           </view>
         </view>
@@ -32,11 +32,11 @@
         </view>
         <view class="cu-item">
           <view class="my-liked"
-                :class="{'liked': !isShow}">
+                :class="{'liked': isLike}">
             <view class="cu-avatar svg like"
                   @click="showLike">
               <view style="width: 80px;height: 40px;font-size: 30px;right: -40px;"
-                    class="cu-tag badge">1</view>
+                    class="cu-tag badge">{{like}}</view>
             </view>
             <view class="svg h h-1"></view>
             <view class="svg h h-2"></view>
@@ -62,7 +62,6 @@
 </template>
 
 <script>
-// import { getArtDetls } from '@/api/index'
 import { formatTime } from '@/utils/index'
 import wxParse from 'mpvue-wxparse'
 import 'mpvue-wxparse/src/wxParse.css'
@@ -80,8 +79,10 @@ export default {
       catg: '',
       tag: '',
       cdate: '',
-      isShow: false,
-      shareId: ''
+      pv: '',
+      like: '',
+      isLike: false,
+      apptId: ''
     }
   },
   onShareAppMessage: (res) => {
@@ -91,7 +92,7 @@ export default {
     })
     return {
       title: this.title,
-      path: `/pages/detail/main?id=${this.shareId}`,
+      path: `/pages/detail/main?id=${this.apptId}`,
       success: (res) => {
         console.log("转发成功", res);
       },
@@ -106,23 +107,56 @@ export default {
   methods: {
     //指定ID文章详情接口
     getArtDetl () {
-      let id = this.$route.query.id
-      this.$store.dispatch('article/getArtDetls', { id }).then(res => {
+      let self = this;
+      let id = self.$route.query.id
+      self.$store.dispatch('article/getArtDetls', { id }).then(res => {
         if (res.code === 1) {
-          this.shareId = res.ArtDeilData.id
-          this.title = res.ArtDeilData.title
-          this.catg = res.ArtDeilData.catg
-          this.content = res.ArtDeilData.content
-          this.tag = res.ArtDeilData.tag;
+          self.apptId = res.ArtDeilData.id
+          self.title = res.ArtDeilData.title
+          self.catg = res.ArtDeilData.catg
+          self.pv = res.ArtDeilData.pv + 1
+          self.like = res.ArtDeilData.like
+          self.content = res.ArtDeilData.content
+          self.tag = res.ArtDeilData.tag;
           let myDate = new Date(res.ArtDeilData.cdate)
           let formatDate = formatTime(myDate).split(' ')[0];
-          this.cdate = formatDate;
+          self.cdate = formatDate;
         }
       })
     },
-    // 单击添加删除class名
-    showLike () {
-      this.isShow = !this.isShow;
+    // 单击增加或者删除点赞文章接口
+    showLike (event) {
+      let self = this;
+      let isShow = self.isLike
+      if (isShow) {
+        let param = {
+          id: self.apptId,
+          like: self.like
+        }
+        console.log(`del`, param)
+        self.$store.dispatch('article/delLikeArt', param).then(res => {
+          console.log(res);
+          if (res.code === 1) {
+            isShow = false;
+            self.isLike = isShow;
+            self.like -= 1;
+          }
+        })
+      } else {
+        let param = {
+          id: self.apptId,
+          like: self.like
+        }
+        console.log(`add`, param)
+        self.$store.dispatch('article/addLikeArt', param).then(res => {
+          console.log(res);
+          if (res.code === 1) {
+            isShow = true;
+            self.isLike = isShow;
+            self.like += 1;
+          }
+        })
+      }
     }
   }
 }

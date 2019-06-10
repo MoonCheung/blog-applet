@@ -4,7 +4,9 @@ const state = {
   // 文章列表
   allList: {},
   apptList: {},
-  apptDeil: {}
+  apptDeil: {},
+  addLike: {},
+  delLike: {}
 }
 
 const mutations = {
@@ -16,6 +18,12 @@ const mutations = {
   },
   GET_ART_DETL (state, data) {
     state.apptDeil = data
+  },
+  POST_ADD_LIKE_ART (state, data) {
+    state.addLike = data
+  },
+  POST_DEL_LIKE_ART (state, data) {
+    state.delLike = data
   }
 }
 
@@ -55,6 +63,36 @@ const actions = {
         .getArtDetls(param)
         .then(res => {
           commit('GET_ART_DETL', res.ArtDeilData)
+          resolve(res)
+        })
+        .catch(err => {
+          reject(err)
+        })
+    })
+  },
+
+  // 增加点赞文章接口
+  addLikeArt ({ commit }, param) {
+    return new Promise((resolve, reject) => {
+      api
+        .addLikeArt(param)
+        .then(res => {
+          commit('POST_ADD_LIKE_ART', res)
+          resolve(res)
+        })
+        .catch(err => {
+          reject(err)
+        })
+    })
+  },
+
+  // 删除点赞文章接口
+  delLikeArt ({ commit }, param) {
+    return new Promise((resolve, reject) => {
+      api
+        .delLikeArt(param)
+        .then(res => {
+          commit('POST_DEL_LIKE_ART', res)
           resolve(res)
         })
         .catch(err => {

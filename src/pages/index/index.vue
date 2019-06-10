@@ -32,7 +32,7 @@
                     </view>
                     <view class="text-myicon">
                       <text class="cuIcon-file text-gray text-sm">&nbsp;{{item.catg}}</text>
-                      <text class="cuIcon-attention text-gray margin-left-sm text-sm">&nbsp;1次围观</text>
+                      <text class="cuIcon-attention text-gray margin-left-sm text-sm">&nbsp;{{item.pv}}次围观</text>
                     </view>
                   </view>
                 </view>
@@ -70,7 +70,7 @@
                     </view>
                     <view class="text-myicon">
                       <text class="cuIcon-file text-gray text-sm">&nbsp;{{apptItem.catg}}</text>
-                      <text class="cuIcon-attention text-gray margin-left-sm text-sm">&nbsp;1次围观</text>
+                      <text class="cuIcon-attention text-gray margin-left-sm text-sm">&nbsp;{{apptItem.pv}}次围观</text>
                     </view>
                   </view>
                 </view>
