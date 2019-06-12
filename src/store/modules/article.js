@@ -19,12 +19,12 @@ const mutations = {
   GET_ART_DETL (state, data) {
     state.apptDeil = data
   },
-  POST_ADD_LIKE_ART (state, data) {
+  POST_CHG_LIKE_ART (state, data) {
     state.addLike = data
-  },
-  POST_DEL_LIKE_ART (state, data) {
-    state.delLike = data
   }
+  // POST_DEL_LIKE_ART (state, data) {
+  //   state.delLike = data
+  // }
 }
 
 const actions = {
@@ -71,28 +71,13 @@ const actions = {
     })
   },
 
-  // 增加点赞文章接口
-  addLikeArt ({ commit }, param) {
+  // 改变点赞文章状态API
+  chgLikeArt ({ commit }, param) {
     return new Promise((resolve, reject) => {
       api
-        .addLikeArt(param)
+        .chgLikeArt(param)
         .then(res => {
-          commit('POST_ADD_LIKE_ART', res)
-          resolve(res)
-        })
-        .catch(err => {
-          reject(err)
-        })
-    })
-  },
-
-  // 删除点赞文章接口
-  delLikeArt ({ commit }, param) {
-    return new Promise((resolve, reject) => {
-      api
-        .delLikeArt(param)
-        .then(res => {
-          commit('POST_DEL_LIKE_ART', res)
+          commit('POST_CHG_LIKE_ART', res.result)
           resolve(res)
         })
         .catch(err => {
@@ -100,6 +85,21 @@ const actions = {
         })
     })
   }
+
+  // // 删除点赞文章接口
+  // delLikeArt ({ commit }, param) {
+  //   return new Promise((resolve, reject) => {
+  //     api
+  //       .delLikeArt(param)
+  //       .then(res => {
+  //         commit('POST_DEL_LIKE_ART', res)
+  //         resolve(res)
+  //       })
+  //       .catch(err => {
+  //         reject(err)
+  //       })
+  //   })
+  // }
 }
 
 export default {

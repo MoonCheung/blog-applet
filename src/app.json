@@ -2,8 +2,7 @@
   "pages": [
     "pages/index/main",
     "pages/detail/main",
-    "pages/me/main",
-    "pages/counter/main"
+    "pages/me/main"
   ],
   "window": {
     "backgroundColor": "#FFF",

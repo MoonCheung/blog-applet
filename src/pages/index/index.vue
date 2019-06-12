@@ -178,7 +178,7 @@ export default {
       })
     },
 
-    //获取指定tab标签页文章列表API
+    // 获取指定tab标签页文章列表API
     getApptCatg (chgcatg, init) {
       let self = this;
       if (init === true) {
@@ -205,7 +205,7 @@ export default {
         wx.hideNavigationBarLoading();
       })
     },
-    // //切换指定tab标签页
+    // 切换指定tab标签页
     chgApptCatg (event) {
       let self = this;
       let catg = event.mp.detail.title
@@ -213,14 +213,14 @@ export default {
       self.getArtsList(catg, true);
       self.getApptCatg(catg, true);
     },
-    // //获取每个Title详情
+    // 获取每个Title详情
     goTitleDetail (val) {
       this.$router.push({
         path: '/pages/detail/main',
         query: { id: val }
       })
     },
-    //获取指定标签栏每个Title详情
+    // 获取指定标签栏每个Title详情
     goApptTitleDetail (val) {
       this.$router.push({
         path: '/pages/detail/main',

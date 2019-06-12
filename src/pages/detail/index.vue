@@ -32,9 +32,10 @@
         </view>
         <view class="cu-item">
           <view class="my-liked"
-                :class="{'liked': isLike}">
+                :class="isLike">
             <view class="cu-avatar svg like"
-                  @click="showLike">
+                  @click="showLike"
+                  :data-id="apptId">
               <view style="width: 80px;height: 40px;font-size: 30px;right: -40px;"
                     class="cu-tag badge">{{like}}</view>
             </view>
@@ -81,7 +82,7 @@ export default {
       cdate: '',
       pv: '',
       like: '',
-      isLike: false,
+      isLiked: false,
       apptId: ''
     }
   },
@@ -101,6 +102,15 @@ export default {
       }
     }
   },
+  computed: {
+    isLike () {
+      return this.isLiked ? 'liked' : '';
+    },
+  },
+  beforeMount () {
+    console.log('hello beforeMount')
+    this.aldyLikeArt();
+  },
   mounted () {
     this.getArtDetl();
   },
@@ -109,53 +119,95 @@ export default {
     getArtDetl () {
       let self = this;
       let id = self.$route.query.id
+      self.isLiked = false;
       self.$store.dispatch('article/getArtDetls', { id }).then(res => {
+        let uid;
         if (res.code === 1) {
           self.apptId = res.ArtDeilData.id
           self.title = res.ArtDeilData.title
           self.catg = res.ArtDeilData.catg
-          self.pv = res.ArtDeilData.pv + 1
+          self.pv = res.ArtDeilData.pv
           self.like = res.ArtDeilData.like
           self.content = res.ArtDeilData.content
           self.tag = res.ArtDeilData.tag;
           let myDate = new Date(res.ArtDeilData.cdate)
           let formatDate = formatTime(myDate).split(' ')[0];
           self.cdate = formatDate;
+          // if (self.isLiked == 'true') {
+          //   likeSts.push(res.ArtDeilData.id)
+          //   wx.setStorageSync('like', likeSts);
+          // }
         }
       })
     },
-    // 单击增加或者删除点赞文章接口
-    showLike (event) {
+    aldyLikeArt () {
       let self = this;
-      let isShow = self.isLike
-      if (isShow) {
-        let param = {
-          id: self.apptId,
-          like: self.like
-        }
-        console.log(`del`, param)
-        self.$store.dispatch('article/delLikeArt', param).then(res => {
-          console.log(res);
-          if (res.code === 1) {
-            isShow = false;
-            self.isLike = isShow;
-            self.like -= 1;
-          }
-        })
-      } else {
-        let param = {
-          id: self.apptId,
-          like: self.like
-        }
-        console.log(`add`, param)
-        self.$store.dispatch('article/addLikeArt', param).then(res => {
-          console.log(res);
-          if (res.code === 1) {
+      let id = self.$route.query.id;
+      let isShow = self.isLiked  //false
+      let cookie_id = wx.getStorageSync('like') || [];
+      if (cookie_id.includes(id)) {
+        for (let j in cookie_id) {
+          if (cookie_id[j] === id) {
             isShow = true;
-            self.isLike = isShow;
-            self.like += 1;
+            self.isLiked = isShow;
+            console.log(`aldyLikeArt:`, self.isLiked) //从控制台没有打印出来
           }
-        })
+        }
+      }
+    },
+    // 改变点赞文章状态接口
+    showLike (event) {
+      //第二次改变点赞文章状态
+      let self = this;
+      let item_id = event.mp.currentTarget.dataset.id
+      let cookie_id = wx.getStorageSync('like') || []
+      if (self.apptId == item_id) {
+        let num = self.like
+        let isShow = self.isLiked
+        // 用来判断一个数组是否包含一个指定的值;
+        if (cookie_id.includes(item_id)) {   //已经点赞过，取消点赞
+          for (let j in cookie_id) {
+            console.log(`来自cookie_id的遍历`, cookie_id[j])
+            if (cookie_id[j] == item_id) {
+              cookie_id.splice(j, 1) //删除取消点赞的ID
+            }
+          }
+          num -= 1; //点赞数减一
+          isShow = false;
+          self.isLiked = isShow;
+          // self.like = num;
+          let param = {
+            id: item_id,
+            like: num
+          }
+          console.log(`-1`, param)
+          wx.setStorageSync('like', cookie_id);
+          //后台交互，后台数据同步
+          self.$store.dispatch('article/chgLikeArt', param).then((res) => {
+            if (res.code === 1) {
+              self.like = res.result.like;
+            }
+          })
+        } else {
+          num += 1; //点赞数加一
+          isShow = true;
+          self.isLiked = isShow;
+          // self.like = num;
+          let param = {
+            id: item_id,
+            like: num
+          }
+          console.log(`+1`, param)
+          //来自微信小程序的Storage
+          cookie_id.unshift(item_id);   //新增赞的开头的id
+          wx.setStorageSync('like', cookie_id);
+          //后台交互，后台数据同步
+          self.$store.dispatch('article/chgLikeArt', param).then((res) => {
+            if (res.code === 1) {
+              self.like = res.result.like;
+            }
+          })
+        }
       }
     }
   }

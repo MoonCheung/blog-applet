@@ -4,7 +4,7 @@
  * @Github: https://github.com/MoonCheung
  * @Date: 2019-06-09 14:53:06
  * @LastEditors: MoonCheung
- * @LastEditTime: 2019-06-10 21:41:06
+ * @LastEditTime: 2019-06-11 17:45:56
  */
 
 import fly from '@/api/apiconfig'
@@ -25,10 +25,6 @@ export function getApptCatgLists (data) {
   return fly.request('/art/apptcatg', data, { method: 'post' })
 }
 
-export function addLikeArt (data) {
-  return fly.request('/art/addlike', data, { method: 'post' })
-}
-
-export function delLikeArt (data) {
-  return fly.request('/art/dellike', data, { method: 'post' })
+export function chgLikeArt (data) {
+  return fly.request('/art/chglike', data, { method: 'post' })
 }
