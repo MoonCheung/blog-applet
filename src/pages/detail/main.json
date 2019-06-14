@@ -1,4 +1,5 @@
 {
   "navigationBarTitleText": "详情",
+  "navigationStyle": "custom",
   "usingComponents": {}
 }

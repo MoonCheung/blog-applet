@@ -1,4 +1,6 @@
 {
+  "navigationBarTitleText": "MoonBlogs",
+  "navigationStyle": "custom",
   "usingComponents": {
     "van-tab": "../../vant-weapp/dist/tab/index",
     "van-tabs": "../../vant-weapp/dist/tabs/index"

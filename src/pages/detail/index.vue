@@ -1,5 +1,10 @@
 <template>
   <view>
+    <nav-bar bgColor="bg-rivercity"
+             :isBack="true"
+             :isWave="false">
+      <template slot="content">详情</template>
+    </nav-bar>
     <view class="cu-card article">
       <view class="cu-item shadow">
         <view class="cu-item">
@@ -63,6 +68,7 @@
 </template>
 
 <script>
+import NavBar from '@/components/nav-bar'
 import { formatTime } from '@/utils/index'
 import wxParse from 'mpvue-wxparse'
 import 'mpvue-wxparse/src/wxParse.css'
@@ -71,7 +77,8 @@ import './index.scss'
 export default {
   name: "ArtDetl",
   components: {
-    wxParse
+    wxParse,
+    NavBar
   },
   data () {
     return {

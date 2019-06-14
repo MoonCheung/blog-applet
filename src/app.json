@@ -1,9 +1,9 @@
 {
   "pages": [
-    "pages/me/main",
-    "pages/intro/main",
     "pages/index/main",
-    "pages/detail/main"
+    "pages/detail/main",
+    "pages/me/main",
+    "pages/intro/main"
   ],
   "window": {
     "backgroundColor": "#FFF",

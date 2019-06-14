@@ -1,5 +1,10 @@
 <template>
   <view>
+    <nav-bar bgColor="bg-happyfisher"
+             :isBack="false"
+             :isWave="false">
+      <template slot="content">MoonBlogs</template>
+    </nav-bar>
     <van-tabs ref="change"
               custom-class="tab-header"
               swipeable
@@ -86,8 +91,13 @@
 </template>
 
 <script>
+import NavBar from '@/components/nav-bar'
+
 export default {
   name: "ArtList",
+  components: {
+    NavBar
+  },
   data () {
     return {
       artListdata: [],
@@ -247,6 +257,10 @@ export default {
 </script>
 
 <style lang="scss">
+.bg-happyfisher {
+  background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
+  color: #fff;
+}
 .tab-header {
   top: -1px;
 }
