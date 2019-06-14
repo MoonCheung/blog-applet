@@ -22,14 +22,14 @@
                 </view>
                 <view class="content">
                   <view class="content-header">
-                    <text class="text-grey text-sm">{{item.myAuthor.name}}</text>
-                  </view>
-                  <view class="text-content text-black text-bold text-df title">{{item.title}}</view>
-                  <view class="text-gray text-content bg-white text-mycut">{{item.desc}}</view>
-                  <view class="margin-top-sm flex justify-between">
+                    <text class="text-grey text-sm margin-right-xs">{{item.myAuthor.name}}</text>
                     <view class="text-gray text-df">
                       <text class="text-sm">发布于{{item.cdate}}</text>
                     </view>
+                  </view>
+                  <view class="text-content text-black text-bold text-df title">{{item.title}}</view>
+                  <view class="text-gray text-content bg-white text-mycut">{{item.desc}}</view>
+                  <view class="margin-top-sm flex justify-end">
                     <view class="text-myicon">
                       <text class="cuIcon-file text-gray text-sm">&nbsp;{{item.catg}}</text>
                       <text class="cuIcon-attention text-gray margin-left-sm text-sm">&nbsp;{{item.pv}}次围观</text>
@@ -60,14 +60,14 @@
                 </view>
                 <view class="content">
                   <view class="content-header">
-                    <text class="text-grey text-sm">{{apptItem.apptAuthor.name}}</text>
-                  </view>
-                  <view class="text-content text-black text-bold text-df title">{{apptItem.title}}</view>
-                  <view class="text-gray text-content bg-white text-mycut">{{apptItem.desc}}</view>
-                  <view class="margin-top-sm flex justify-between">
+                    <text class="text-grey text-sm margin-right-xs">{{apptItem.apptAuthor.name}}</text>
                     <view class="text-gray text-df">
                       <text class="text-sm">发布于{{apptItem.cdate}}</text>
                     </view>
+                  </view>
+                  <view class="text-content text-black text-bold text-df title">{{apptItem.title}}</view>
+                  <view class="text-gray text-content bg-white text-mycut">{{apptItem.desc}}</view>
+                  <view class="margin-top-sm flex justify-end">
                     <view class="text-myicon">
                       <text class="cuIcon-file text-gray text-sm">&nbsp;{{apptItem.catg}}</text>
                       <text class="cuIcon-attention text-gray margin-left-sm text-sm">&nbsp;{{apptItem.pv}}次围观</text>

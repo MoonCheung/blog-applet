@@ -4,7 +4,20 @@
              bgImage="/static/images/me.jpeg"
              :isBack="false"
              :isWave="true">
-      <block slot="content">关于</block>
+      <template slot="content">
+        <view class="cu-avatar round xl"
+              style="margin-left: 0;">
+          <open-data class='myAvatar'
+                     type='userAvatarUrl'></open-data>
+        </view>
+        <!-- <button class="cu-btn my-header"
+                open-type="getUserInfo"
+                @getuserinfo="toLogin"
+                lang="zh_CN"
+                role="button">
+          <text class="cuIcon-people text-sl"></text>
+        </button> -->
+      </template>
     </nav-bar>
     <view class="cu-list menu card-menu margin-top">
       <view class="cu-item arrow">
@@ -57,7 +70,9 @@ export default {
           });
         }
       })
-    }
+    },
+    //登录头像
+    toLogin () { }
   }
 }
 </script>
@@ -71,5 +86,28 @@ export default {
 }
 .cu-btn.my-btn {
   padding-left: 0;
+}
+.content.nav-header {
+  height: 80px;
+  .cu-avatar:first-child {
+    margin-left: 0;
+  }
+
+  .cu-avatar {
+    .myAvatar {
+      height: 64px;
+      width: 64px;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+  }
+
+  .my-header {
+    background-color: #ccc;
+    border-radius: 500px;
+    height: 64px;
+    width: 64px;
+    color: #fff;
+  }
 }
 </style>

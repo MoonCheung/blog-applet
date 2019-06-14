@@ -1,8 +1,8 @@
 {
   "pages": [
+    "pages/me/main",
     "pages/index/main",
-    "pages/detail/main",
-    "pages/me/main"
+    "pages/detail/main"
   ],
   "window": {
     "backgroundColor": "#FFF",

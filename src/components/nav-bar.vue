@@ -11,7 +11,7 @@
           <text class="cuIcon-back"></text>
           <slot name="backText"></slot>
         </view>
-        <view class="content"
+        <view class="content nav-header"
               :style="[{top:StatusBar + 'px'}]">
           <slot name="content"></slot>
         </view>
@@ -91,7 +91,7 @@ export default {
         delta: 1
       });
     }
-  }
+  },
 }
 </script>
 

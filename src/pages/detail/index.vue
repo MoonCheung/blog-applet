@@ -141,19 +141,20 @@ export default {
       })
     },
     aldyLikeArt () {
-      let self = this;
-      let id = self.$route.query.id;
-      let isShow = self.isLiked  //false
+      // let self = this;
+      let id = this.$route.query.id;
+      let isShow = this.isLiked  //false
       let cookie_id = wx.getStorageSync('like') || [];
-      if (cookie_id.includes(id)) {
-        for (let j in cookie_id) {
-          if (cookie_id[j] === id) {
-            isShow = true;
-            self.isLiked = isShow;
-            console.log(`aldyLikeArt:`, self.isLiked) //从控制台没有打印出来
-          }
+      // if (cookie_id.includes(id)) {
+      for (let j in cookie_id) {
+        console.log(`for遍历:`, cookie_id[j]);
+        if (cookie_id[j] === id) {
+          isShow = true;
+          this.isLiked = isShow;
+          console.log(`aldyLikeArt:`, this.isLiked) //从控制台没有打印出来
         }
       }
+      // }
     },
     // 改变点赞文章状态接口
     showLike (event) {
