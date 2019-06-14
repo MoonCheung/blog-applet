@@ -40,7 +40,8 @@
       <view class="cu-item arrow">
         <view class="content">
           <text class="cuIcon-peoplefill text-grey"></text>
-          <text class="text-grey">关于我</text>
+          <text class="text-grey"
+                @click="toSelfIntro">关于我</text>
         </view>
       </view>
     </view>
@@ -71,8 +72,14 @@ export default {
         }
       })
     },
+    toSelfIntro () {
+      this.$router.push({
+        path: '/pages/intro/main'
+      })
+    },
     //登录头像
-    toLogin () { }
+    toLogin () { },
+
   }
 }
 </script>
