@@ -19,11 +19,18 @@
 * 某文件添加 request 拦截器,response 拦截器属性
 * 为了单一文件里面放置 API 接口，以便调用
 
+### 将 RESTful API 接口放入 Vuex 状态管理使用
+
+* 因为小程序内部不支持手动刷新，为 Vuex 将 API 接口存储提供的
+* 小程序本身没有像浏览器的 vue Devtools 插件可调试，Vuex 内置有日志插件，需手动添加的
+* 通过 main.js 引入 store.js 实例化，同时 Vue 的原型上需手动添加$store 属性指向 store 对象
+
 ## 应用功能
 
 * [x] 文章列表
 * [x] 文章详情
 * [x] 点赞功能
+* [x] 页面滚动
 
 ## 执行命令
 
@@ -46,17 +53,11 @@ npm dev
 # 打包构建
 npm build
 
-# 指定平台的开发时构建(微信、百度、头条、支付宝)
+# 指定平台的开发时构建微信小程序
 npm dev:wx
-# npm dev:swan
-# npm dev:tt
-# npm dev:my
 
 # 指定平台的打包构建
 npm build:wx
-# npm build:swan
-# npm build:tt
-# npm build:my
 
 # 生成 bundle 分析报告
 npm run build --report

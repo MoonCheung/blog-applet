@@ -22,9 +22,6 @@ const mutations = {
   POST_CHG_LIKE_ART (state, data) {
     state.addLike = data
   }
-  // POST_DEL_LIKE_ART (state, data) {
-  //   state.delLike = data
-  // }
 }
 
 const actions = {
@@ -70,7 +67,6 @@ const actions = {
         })
     })
   },
-
   // 改变点赞文章状态API
   chgLikeArt ({ commit }, param) {
     return new Promise((resolve, reject) => {
@@ -85,21 +81,6 @@ const actions = {
         })
     })
   }
-
-  // // 删除点赞文章接口
-  // delLikeArt ({ commit }, param) {
-  //   return new Promise((resolve, reject) => {
-  //     api
-  //       .delLikeArt(param)
-  //       .then(res => {
-  //         commit('POST_DEL_LIKE_ART', res)
-  //         resolve(res)
-  //       })
-  //       .catch(err => {
-  //         reject(err)
-  //       })
-  //   })
-  // }
 }
 
 export default {

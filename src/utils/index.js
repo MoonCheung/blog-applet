@@ -4,10 +4,8 @@
  * @Github: https://github.com/MoonCheung
  * @Date: 2019-05-28 15:39:23
  * @LastEditors: MoonCheung
- * @LastEditTime: 2019-06-03 14:37:11
+ * @LastEditTime: 2019-06-15 23:01:29
  */
-
-import Notify from 'vant-weapp/dist/notify/notify'
 
 function formatNumber (n) {
   const str = n.toString()
@@ -27,23 +25,6 @@ export function formatTime (date) {
   const t2 = [hour, minute, second].map(formatNumber).join(':')
 
   return `${t1} ${t2}`
-}
-
-/**
- * 显示顶部红色通知
- * 使用方法：调用时确保界面上有：
- * <van-notify id="van-notify"/>
- * @param msg
- * @param showTime
- */
-export function showNotify (msg, showTime) {
-  if (!showTime) {
-    showTime = 3000
-  }
-  Notify({
-    text: msg,
-    duration: showTime
-  })
 }
 
 /**
