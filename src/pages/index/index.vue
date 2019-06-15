@@ -206,7 +206,7 @@ export default {
         curPage: self.page
       }
       wx.showNavigationBarLoading()
-      console.log(`getApptCatg:`, param);//打印页数及指定标签栏
+      // console.log(`getApptCatg:`, param);//打印页数及指定标签栏
       self.$store.dispatch('article/getApptCatgLists', param).then(res => {
         if (res.apptArtList.length <= 1) {
           self.apptmore = false

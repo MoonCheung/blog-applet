@@ -4,23 +4,23 @@
  * @Github: https://github.com/MoonCheung
  * @Date: 2019-05-28 15:39:23
  * @LastEditors: MoonCheung
- * @LastEditTime: 2019-05-31 00:38:25
+ * @LastEditTime: 2019-06-15 22:53:16
  */
-
-import {
-  getStorageSync,
-  hideLoading,
-  showLoading,
-  showNotify
-} from '../utils/index'
 
 const Fly = require('flyio/dist/npm/wx')
 const fly = new Fly()
 // 设置超时
 fly.config.timeout = 7000
-// 定义公共配置
-// fly.config.headers = { 'x-tag': 'flyio' }
-fly.config.baseURL = 'http://127.0.0.1:3030/api/'
+
+// 根据开发环境返回接口url
+const PROD_SERVIC = 'https://api.ikmoons.com/'
+const DEV_SERVIC = 'http://127.0.0.1:3030/api/'
+
+if (process.env.NODE_ENV === 'production') {
+  fly.config.baseURL = PROD_SERVIC
+} else {
+  fly.config.baseURL = DEV_SERVIC
+}
 
 // 添加请求拦截器
 fly.interceptors.request.use(
@@ -28,7 +28,8 @@ fly.interceptors.request.use(
     return req
   },
   error => {
-    Promise.reject(error)
+    console.error('请求拦截器:', error)
+    return Promise.reject(error)
   }
 )
 // 添加响应拦截器
@@ -41,7 +42,8 @@ fly.interceptors.response.use(
   },
   error => {
     // 发生网络错误后会走到这里
-    console.log(error)
+    console.error('响应拦截器:', error)
+    return Promise.resolve(error)
   }
 )
 
