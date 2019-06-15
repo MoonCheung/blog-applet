@@ -65,8 +65,7 @@
       </van-tab>
       <van-tab v-for="(item,index) in tabbar"
                :title="item.categoryname"
-               :key="index"
-               :ref="tab">
+               :key="index">
         <scroll-view class="myScroll"
                      scroll-y="true"
                      lower-threshold="50"
@@ -207,7 +206,7 @@ export default {
         curPage: self.page
       }
       wx.showNavigationBarLoading()
-      // console.log(`getApptCatg:`, param);//打印页数及指定标签栏
+      console.log(`getApptCatg:`, param);//打印页数及指定标签栏
       self.$store.dispatch('article/getApptCatgLists', param).then(res => {
         if (res.apptArtList.length <= 1) {
           self.apptmore = false
@@ -271,28 +270,28 @@ export default {
 
 
     // 上滑全部文章加载更多
-    onAllToLower (e) {
+    onAllToLower () {
       let self = this;
       let allLoadMore = self.allmore;
-      self.allpage += 1
       if (!allLoadMore) {
         return true;
       }
+      self.allpage += 1
       setTimeout(() => {
         self.getArtsList()
       }, 500)
     },
     // 上滑指定标签文章加载更多
-    onApptToLower (e) {
+    onApptToLower () {
       let self = this;
       let apptLoadMore = self.apptmore;
-      self.page += 1
       if (!apptLoadMore) {
         return true;
       }
+      self.page += 1
       setTimeout(() => {
         self.getApptCatg()
-      }, 500)
+      }, 100)
     },
 
     // 获取每个Title详情
@@ -337,7 +336,7 @@ export default {
 }
 // scroll-view滚动样式
 .my-scroll {
-  max-height: 100vh;
+  height: 100vh;
 }
 // 返回顶部
 .my {
