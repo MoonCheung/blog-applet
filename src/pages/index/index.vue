@@ -14,77 +14,107 @@
               :active="active"
               @change.prevent="chgApptCatg($event)">
       <van-tab :title="allTab">
-        <view class="cu-card dynamic">
-          <view class="cu-item">
-            <view class="cu-list menu-avatar comment solids-top">
-              <view class="cu-item cardList radius shadow shadow-lg bg-white"
-                    v-for="(item,index) in artListdata"
-                    :key="index"
-                    @click="goTitleDetail(item.id)">
-                <view class="cu-avatar round">
-                  <image class="cu-avatar round"
-                         :src="item.myAuthor.avatar" />
-                </view>
-                <view class="content">
-                  <view class="content-header">
-                    <text class="text-grey text-sm margin-right-xs">{{item.myAuthor.name}}</text>
-                    <view class="text-gray text-df">
-                      <text class="text-sm">发布于{{item.cdate}}</text>
-                    </view>
+        <scroll-view class="my-scroll"
+                     scroll-y="true"
+                     lower-threshold="50"
+                     @scroll="onAllScroll"
+                     :scroll-top="allScrollTop"
+                     @scrolltolower="onAllToLower">
+          <view class="cu-card dynamic">
+            <view class="cu-item">
+              <view class="cu-list menu-avatar comment solids-top">
+                <view class="cu-item cardList radius shadow shadow-lg bg-white"
+                      v-for="(item,index) in artListdata"
+                      :key="index"
+                      @click="goTitleDetail(item.id)">
+                  <view class="cu-avatar round">
+                    <image class="cu-avatar round"
+                           :src="item.myAuthor.avatar" />
                   </view>
-                  <view class="text-content text-black text-bold text-df title">{{item.title}}</view>
-                  <view class="text-gray text-content bg-white text-mycut">{{item.desc}}</view>
-                  <view class="margin-top-sm flex justify-end">
-                    <view class="text-myicon">
-                      <text class="cuIcon-file text-gray text-sm">&nbsp;{{item.catg}}</text>
-                      <text class="cuIcon-attention text-gray margin-left-sm text-sm">&nbsp;{{item.pv}}次围观</text>
+                  <view class="content">
+                    <view class="content-header">
+                      <text class="text-grey text-sm margin-right-xs">{{item.myAuthor.name}}</text>
+                      <view class="text-gray text-df">
+                        <text class="text-sm">发布于{{item.cdate}}</text>
+                      </view>
+                    </view>
+                    <view class="text-content text-black text-bold text-df title">{{item.title}}</view>
+                    <view class="text-gray text-content bg-white text-mycut">{{item.desc}}</view>
+                    <view class="margin-top-sm flex justify-end">
+                      <view class="text-myicon">
+                        <text class="cuIcon-file text-gray text-sm">&nbsp;{{item.catg}}</text>
+                        <text class="cuIcon-attention text-gray margin-left-sm text-sm">&nbsp;{{item.pv}}次围观</text>
+                      </view>
                     </view>
                   </view>
                 </view>
               </view>
             </view>
           </view>
+          <view class="cu-load bg-gray"
+                :class="allLoadMore"></view>
+        </scroll-view>
+        <!-- 固定滚动位置 -->
+        <view class="my-widget"
+              @click="goAllTop"
+              v-show="allfloor">
+          <view class="my-goTop">
+            <text class="text-lg text-gray cuIcon-fold"></text>
+          </view>
         </view>
-        <view class="cu-load bg-gray"
-              :class="moreLoading"></view>
       </van-tab>
       <van-tab v-for="(item,index) in tabbar"
                :title="item.categoryname"
                :key="index"
                :ref="tab">
-        <view class="cu-card dynamic">
-          <view class="cu-item">
-            <view class="cu-list menu-avatar comment solids-top">
-              <view class="cu-item cardList radius shadow shadow-lg bg-white"
-                    v-for="(apptItem, apptItemIndex) in apptartdata"
-                    :key="apptItemIndex"
-                    @click="goApptTitleDetail(apptItem.id)">
-                <view class="cu-avatar round">
-                  <image class="cu-avatar round"
-                         :src="apptItem.apptAuthor.avatar" />
-                </view>
-                <view class="content">
-                  <view class="content-header">
-                    <text class="text-grey text-sm margin-right-xs">{{apptItem.apptAuthor.name}}</text>
-                    <view class="text-gray text-df">
-                      <text class="text-sm">发布于{{apptItem.cdate}}</text>
-                    </view>
+        <scroll-view class="myScroll"
+                     scroll-y="true"
+                     lower-threshold="50"
+                     @scroll="onApptScroll"
+                     :scroll-top="apptScrollTop"
+                     @scrolltolower="onApptToLower">
+          <view class="cu-card dynamic">
+            <view class="cu-item">
+              <view class="cu-list menu-avatar comment solids-top">
+                <view class="cu-item cardList radius shadow shadow-lg bg-white"
+                      v-for="(apptItem, apptItemIndex) in apptartdata"
+                      :key="apptItemIndex"
+                      @click="goApptTitleDetail(apptItem.id)">
+                  <view class="cu-avatar round">
+                    <image class="cu-avatar round"
+                           :src="apptItem.apptAuthor.avatar" />
                   </view>
-                  <view class="text-content text-black text-bold text-df title">{{apptItem.title}}</view>
-                  <view class="text-gray text-content bg-white text-mycut">{{apptItem.desc}}</view>
-                  <view class="margin-top-sm flex justify-end">
-                    <view class="text-myicon">
-                      <text class="cuIcon-file text-gray text-sm">&nbsp;{{apptItem.catg}}</text>
-                      <text class="cuIcon-attention text-gray margin-left-sm text-sm">&nbsp;{{apptItem.pv}}次围观</text>
+                  <view class="content">
+                    <view class="content-header">
+                      <text class="text-grey text-sm margin-right-xs">{{apptItem.apptAuthor.name}}</text>
+                      <view class="text-gray text-df">
+                        <text class="text-sm">发布于{{apptItem.cdate}}</text>
+                      </view>
+                    </view>
+                    <view class="text-content text-black text-bold text-df title">{{apptItem.title}}</view>
+                    <view class="text-gray text-content bg-white text-mycut">{{apptItem.desc}}</view>
+                    <view class="margin-top-sm flex justify-end">
+                      <view class="text-myicon">
+                        <text class="cuIcon-file text-gray text-sm">&nbsp;{{apptItem.catg}}</text>
+                        <text class="cuIcon-attention text-gray margin-left-sm text-sm">&nbsp;{{apptItem.pv}}次围观</text>
+                      </view>
                     </view>
                   </view>
                 </view>
               </view>
             </view>
           </view>
+          <view class="cu-load bg-gray"
+                :class="apptLoadMore"></view>
+        </scroll-view>
+        <!-- 固定滚动位置 -->
+        <view class="my-widget"
+              @click="goApptTop"
+              v-show="apptfloor">
+          <view class="my-goTop">
+            <text class="text-lg text-gray cuIcon-fold"></text>
+          </view>
         </view>
-        <view class="cu-load bg-gray"
-              :class="moreLoading"></view>
       </van-tab>
     </van-tabs>
   </view>
@@ -102,78 +132,55 @@ export default {
     return {
       artListdata: [],
       apptartdata: [],
+      allfloor: false,
+      apptfloor: false,
       page: 0,
+      allpage: 0,
+      allScrollTop: '',
+      apptScrollTop: '',
       allTab: "全部",
-      more: false,
+      allmore: false,
+      apptmore: false,
       tabbar: [],
       catgname: '',
       active: 0,
     }
   },
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom () {
-    let self = this;
-    if (!self.more) {
-      return true;
-    }
-    switch (self.catgname) {
-      case '前端':
-        self.page += 1;
-        self.getApptCatg();
-        break;
-      case '诗与远方':
-        self.page += 1
-        self.getApptCatg();
-        break;
-      case '技术心得':
-        self.page += 1
-        self.getApptCatg();
-        break;
-      case '后端':
-        self.page += 1
-        self.getApptCatg();
-        break;
-      default:
-        self.page += 1;
-        self.getArtsList();
-        break;
-    }
-  },
   // TODO: 除特殊情况之外，不建议使用小程序生命周期钩子
   computed: {
-    moreLoading () {
-      return this.more ? 'loading' : 'over'
+    allLoadMore () {
+      return this.allmore ? 'loading' : 'over'
+    },
+    apptLoadMore () {
+      return this.apptmore ? 'loading' : 'over'
     },
   },
   mounted () {
     this.getAllCatg();
-    this.getArtsList(this.allTab, true);
+    this.getArtsList(true);
   },
   methods: {
     //获取文章列表API
-    getArtsList (chgcatg, init) {
+    getArtsList (init) {
       let self = this;
-      if (init === true || chgcatg === '全部') {
-        self.page = 0;
-        self.more = true
+      if (init === true) {
+        self.allpage = 0;
+        self.allmore = true
       }
       wx.showNavigationBarLoading()
-      // console.log(self.page); //打印页数
       let param = {
-        allPage: self.page
+        allPage: self.allpage
       }
+      // console.log(`getArtsList:`, param); //打印页数
       self.$store.dispatch('article/getAllArts', param).then(res => {
         if (res.artList.length <= 1) {
-          self.more = false
+          self.allmore = false
         }
-        if (init === true && chgcatg !== '全部') {
+        if (init) {
           self.artListdata = res.artList;
         } else {
           // 下拉刷新，不能直接覆盖books,而是累加
           self.artListdata = self.artListdata.concat(res.artList);
-
         }
         wx.hideNavigationBarLoading();
       })
@@ -193,17 +200,17 @@ export default {
       let self = this;
       if (init === true) {
         self.page = 0
-        self.more = true
+        self.apptmore = true
       }
       let param = {
         catg: chgcatg,
         curPage: self.page
       }
       wx.showNavigationBarLoading()
-      // console.log(param);//打印页数及指定标签栏
+      // console.log(`getApptCatg:`, param);//打印页数及指定标签栏
       self.$store.dispatch('article/getApptCatgLists', param).then(res => {
         if (res.apptArtList.length <= 1) {
-          self.more = false
+          self.apptmore = false
         }
         if (init) {
           self.apptartdata = res.apptArtList
@@ -220,9 +227,74 @@ export default {
       let self = this;
       let catg = event.mp.detail.title
       self.catgname = catg
-      self.getArtsList(catg, true);
       self.getApptCatg(catg, true);
     },
+    // 触发全部文章scroll事件
+    onAllScroll (e) {
+      let self = this;
+      if (e.mp.detail.scrollTop >= 500) {
+        self.allfloor = true;
+      } else {
+        self.allfloor = false;
+      }
+    },
+    //触发全部文章：scroll返回到顶部
+    goAllTop () {
+      let self = this;
+      self.allScrollTop = 0;
+      wx.pageScrollTo({
+        scrollTop: self.allScrollTop,
+        duration: 300
+      })
+      self.allScrollTop = ''
+    },
+
+    // 触发指定文章scroll事件
+    onApptScroll (e) {
+      let self = this;
+      if (e.mp.detail.scrollTop >= 500) {
+        self.apptfloor = true;
+      } else {
+        self.apptfloor = false;
+      }
+    },
+    //触发指定文章：scroll返回到顶部
+    goApptTop () {
+      let self = this;
+      self.apptScrollTop = 0;
+      wx.pageScrollTo({
+        scrollTop: self.apptScrollTop,
+        duration: 300
+      })
+      self.apptScrollTop = ''
+    },
+
+
+    // 上滑全部文章加载更多
+    onAllToLower (e) {
+      let self = this;
+      let allLoadMore = self.allmore;
+      self.allpage += 1
+      if (!allLoadMore) {
+        return true;
+      }
+      setTimeout(() => {
+        self.getArtsList()
+      }, 500)
+    },
+    // 上滑指定标签文章加载更多
+    onApptToLower (e) {
+      let self = this;
+      let apptLoadMore = self.apptmore;
+      self.page += 1
+      if (!apptLoadMore) {
+        return true;
+      }
+      setTimeout(() => {
+        self.getApptCatg()
+      }, 500)
+    },
+
     // 获取每个Title详情
     goTitleDetail (val) {
       this.$router.push({
@@ -237,7 +309,6 @@ export default {
         query: { id: val }
       })
     }
-
 
     // 这是mpvue官方DEMO例子
     // bindViewTap () {
@@ -264,6 +335,32 @@ export default {
 .tab-header {
   top: -1px;
 }
+// scroll-view滚动样式
+.my-scroll {
+  max-height: 100vh;
+}
+// 返回顶部
+.my {
+  &-widget {
+    position: fixed;
+    bottom: 62.5px;
+    right: 15px;
+    overflow: hidden;
+    z-index: 500;
+
+    .my-goTop {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+  }
+}
+
 .content {
   .text-mycut {
     display: -webkit-box;

@@ -5,63 +5,82 @@
              :isWave="false">
       <template slot="content">详情</template>
     </nav-bar>
-    <view class="cu-card article">
-      <view class="cu-item shadow">
-        <view class="cu-item">
-          <view class="flex-sub text-center padding">
-            <view class="text-lg">
-              <text class="text-black">{{title}}</text>
+    <scroll-view class="my-detlScroll"
+                 scroll-y="true"
+                 @scroll="onDetlScroll"
+                 :scroll-top="detlScrollTop">
+      <view class="cu-card article">
+        <view class="cu-item shadow">
+          <view class="cu-item">
+            <view class="flex-sub text-center padding">
+              <view class="text-lg">
+                <text class="text-black">{{title}}</text>
+              </view>
+              <view class="text-sm text-grey">
+                <text class="cuIcon-countdown margin-right-xs">&nbsp;{{cdate}}</text>
+                <text class="cuIcon-file margin-right-xs">&nbsp;{{catg}}</text>
+                <text class="cuIcon-attention">&nbsp;{{pv}}次浏览</text>
+              </view>
             </view>
-            <view class="text-sm text-grey">
-              <text class="cuIcon-countdown margin-right-xs">&nbsp;{{cdate}}</text>
-              <text class="cuIcon-file margin-right-xs">&nbsp;{{catg}}</text>
-              <text class="cuIcon-attention">&nbsp;{{pv}}次浏览</text>
+          </view>
+          <view class="cu-item">
+            <view class="content">
+              <wx-parse className="my-wxParse"
+                        :content="content"></wx-parse>
+            </view>
+          </view>
+          <view class="cu-item my-item">
+            <view class="content align-center">
+              <text class="cuIcon-tagfill text-red margin-right-xs"></text>
+              <text class="action"
+                    v-for="(item, index) in tag"
+                    :key="index">
+                <text class="cu-tag radius margin-right-xs">{{item}}</text>
+              </text>
+            </view>
+          </view>
+          <view class="cu-item">
+            <view class="my-liked"
+                  :class="isLike">
+              <view class="cu-avatar svg like"
+                    @click="showLike"
+                    :data-id="apptId">
+                <view style="width: 80px;height: 40px;font-size: 30px;right: -40px;"
+                      class="cu-tag badge">{{like}}</view>
+              </view>
+              <view class="svg h h-1"></view>
+              <view class="svg h h-2"></view>
+              <view class="svg h h-3"></view>
+              <view class="svg h h-4"></view>
+              <view class="svg h h-5"></view>
+              <view class="svg h h-6"></view>
+              <view class="svg h h-7"></view>
+              <view class="svg h h-8"></view>
+            </view>
+          </view>
+          <view class="cu-item">
+            <view class="cu-bar btn-group">
+              <!-- 暂时开发复制网址功能 -->
+              <!-- <button class="cu-btn bg-blue shadow-blur round">复制网址</button> -->
+              <button open-type="share"
+                      class="cu-btn bg-blue shadow-blur round">分享</button>
             </view>
           </view>
         </view>
-        <view class="cu-item">
-          <view class="content">
-            <wx-parse className="my-wxParse"
-                      :content="content"></wx-parse>
-          </view>
-        </view>
-        <view class="cu-item my-item">
-          <view class="content align-center">
-            <text class="cuIcon-tagfill text-red margin-right-xs"></text>
-            <text class="action"
-                  v-for="(item, index) in tag"
-                  :key="index">
-              <text class="cu-tag radius margin-right-xs">{{item}}</text>
-            </text>
-          </view>
-        </view>
-        <view class="cu-item">
-          <view class="my-liked"
-                :class="isLike">
-            <view class="cu-avatar svg like"
-                  @click="showLike"
-                  :data-id="apptId">
-              <view style="width: 80px;height: 40px;font-size: 30px;right: -40px;"
-                    class="cu-tag badge">{{like}}</view>
-            </view>
-            <view class="svg h h-1"></view>
-            <view class="svg h h-2"></view>
-            <view class="svg h h-3"></view>
-            <view class="svg h h-4"></view>
-            <view class="svg h h-5"></view>
-            <view class="svg h h-6"></view>
-            <view class="svg h h-7"></view>
-            <view class="svg h h-8"></view>
-          </view>
-        </view>
-        <view class="cu-item">
-          <view class="cu-bar btn-group">
-            <!-- 暂时开发复制网址功能 -->
-            <!-- <button class="cu-btn bg-blue shadow-blur round">复制网址</button> -->
-            <button open-type="share"
-                    class="cu-btn bg-blue shadow-blur round">分享</button>
-          </view>
-        </view>
+      </view>
+    </scroll-view>
+    <!-- 固定home以及scroll位置 -->
+    <view class="my-homeWidget"
+          @click="goHome">
+      <view class="my-goHome">
+        <text class="text-lg text-gray cuIcon-homefill"></text>
+      </view>
+    </view>
+    <view class="my-detlWidget"
+          @click="goDetlTop"
+          v-show="detlfloor">
+      <view class="my-goTop">
+        <text class="text-lg text-gray cuIcon-fold"></text>
       </view>
     </view>
   </view>
@@ -82,6 +101,8 @@ export default {
   },
   data () {
     return {
+      detlScrollTop: '',
+      detlfloor: false,
       title: '',
       content: '',
       catg: '',
@@ -217,6 +238,29 @@ export default {
           })
         }
       }
+    },
+    // 跳转到home页面
+    goHome () {
+      this.$router.back(1);
+    },
+    // 触发详情文章scroll事件
+    onDetlScroll (e) {
+      let self = this;
+      if (e.mp.detail.scrollTop >= 400) {
+        self.detlfloor = true;
+      } else {
+        self.detlfloor = false;
+      }
+    },
+    //触发scroll返回到顶部
+    goDetlTop () {
+      let self = this;
+      self.detlScrollTop = 0;
+      wx.pageScrollTo({
+        scrollTop: self.detlScrollTop,
+        duration: 300
+      })
+      self.detlScrollTop = ''
     }
   }
 }

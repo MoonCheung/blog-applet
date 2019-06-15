@@ -10,8 +10,7 @@
     "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#FFF",
     "navigationBarTitleText": "MoonBlogs",
-    "navigationBarTextStyle": "black",
-    "onReachBottomDistance": 50
+    "navigationBarTextStyle": "black"
   },
   "tabBar": {
     "color": "#aaa",
