@@ -8,8 +8,8 @@
 这是 `mpvue` 博客小程序由 `vue`,`vant-weapp`,`ColorUI` 构建应用程序开发的 <br/>
 该博客小程序的 API 接口需要搭配 node 服务器才能运行,想运行时,需要来安装 node 服务器 <br/>
 
-博客管理: [vue-backstage](https://github.com/MoonCheung/vue-backstage) <br/>
-博客后台: [node-server](https://github.com/MoonCheung/node-server)
+后台管理: [vue-backstage](https://github.com/MoonCheung/vue-backstage) <br/>
+后台服务: [node-server](https://github.com/MoonCheung/node-server)
 
 ## 程序结构
 
@@ -48,16 +48,16 @@ npm install
 
 ```bash
 # 开发时构建
-npm dev
+npm run dev
 
 # 打包构建
-npm build
+npm run build
 
 # 指定平台的开发时构建微信小程序
-npm dev:wx
+npm run dev:wx
 
 # 指定平台的打包构建
-npm build:wx
+npm run build:wx
 
 # 生成 bundle 分析报告
 npm run build --report

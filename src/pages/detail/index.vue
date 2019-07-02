@@ -8,7 +8,8 @@
     <scroll-view class="my-detlScroll"
                  scroll-y="true"
                  @scroll="onDetlScroll"
-                 :scroll-top="detlScrollTop">
+                 :scroll-top="detlScrollTop"
+                 scroll-with-animation="true">
       <view class="cu-card article">
         <view class="cu-item shadow">
           <view class="cu-item">
@@ -63,6 +64,8 @@
               <!-- 暂时开发复制网址功能 -->
               <!-- <button class="cu-btn bg-blue shadow-blur round">复制网址</button> -->
               <button open-type="share"
+                      :data-id="shareId"
+                      :data-title="shareTitle"
                       class="cu-btn bg-blue shadow-blur round">分享</button>
             </view>
           </view>
@@ -87,6 +90,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import NavBar from '@/components/nav-bar'
 import { formatTime } from '@/utils/index'
 import wxParse from 'mpvue-wxparse'
@@ -114,26 +118,33 @@ export default {
       apptId: ''
     }
   },
-  onShareAppMessage: (res) => {
-    if (res.from !== "button") return false;
+  //监听页面显示
+  onShow () {
     wx.showShareMenu({
+      // 要求小程序返回分享目标信息
       withShareTicket: true
-    })
+    });
+  },
+  // 转发分享功能
+  onShareAppMessage: (res) => {
+    let self = this;
+    let id = res.target.dataset.id
+    let title = res.target.dataset.title
+    if (res.from !== "button") return false;
     return {
-      title: this.title,
-      path: `/pages/detail/main?id=${this.apptId}`,
-      success: (res) => {
-        console.log("转发成功", res);
-      },
-      fail: (res) => {
-        console.log("转发失败", res);
-      }
+      title: title,
+      path: `/pages/detail/main?id=${id}`,
     }
   },
   computed: {
     isLike () {
       return this.isLiked ? 'liked' : '';
     },
+    // 使用对象展开运算符将 getter 混入 computed 对象中
+    ...mapGetters({
+      shareId: 'apptId',
+      shareTitle: 'apptTitle'
+    })
   },
   beforeMount () {
     console.log('hello beforeMount')
@@ -169,17 +180,18 @@ export default {
       })
     },
     aldyLikeArt () {
-      // let self = this;
-      let id = this.$route.query.id;
-      let isShow = this.isLiked  //false
+      let self = this;
+      let id = self.$route.query.id;
+      let isShow = self.isLiked  //false
       let cookie_id = wx.getStorageSync('like') || [];
       // if (cookie_id.includes(id)) {
       for (let j in cookie_id) {
-        console.log(`for遍历:`, cookie_id[j]);
+        // console.log(`for遍历:`, cookie_id[j]);
+        // console.log(`指定文章详情:`, id);
+        // console.log(`isShow:`, isShow)
         if (cookie_id[j] === id) {
           isShow = true;
-          this.isLiked = isShow;
-          console.log(`aldyLikeArt:`, this.isLiked) //从控制台没有打印出来
+          self.isLiked = isShow;
         }
       }
       // }
@@ -194,7 +206,8 @@ export default {
         let num = self.like
         let isShow = self.isLiked
         // 用来判断一个数组是否包含一个指定的值;
-        if (cookie_id.includes(item_id)) {   //已经点赞过，取消点赞
+        // 已经点赞过，取消点赞
+        if (cookie_id.includes(item_id)) {
           for (let j in cookie_id) {
             console.log(`来自cookie_id的遍历`, cookie_id[j])
             if (cookie_id[j] == item_id) {

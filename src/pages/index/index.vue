@@ -11,7 +11,6 @@
               animated
               color="#1976D2"
               swipeable="true"
-              :active="active"
               @change.prevent="chgApptCatg($event)">
       <van-tab :title="allTab">
         <scroll-view class="my-scroll"
@@ -19,7 +18,8 @@
                      lower-threshold="50"
                      @scroll="onAllScroll"
                      :scroll-top="allScrollTop"
-                     @scrolltolower="onAllToLower">
+                     @scrolltolower="onAllToLower"
+                     scroll-with-animation="true">
           <view class="cu-card dynamic">
             <view class="cu-item">
               <view class="cu-list menu-avatar comment solids-top">
@@ -66,12 +66,13 @@
       <van-tab v-for="(item,index) in tabbar"
                :title="item.categoryname"
                :key="index">
-        <scroll-view class="myScroll"
+        <scroll-view class="my-scroll"
                      scroll-y="true"
                      lower-threshold="50"
                      @scroll="onApptScroll"
                      :scroll-top="apptScrollTop"
-                     @scrolltolower="onApptToLower">
+                     @scrolltolower="onApptToLower"
+                     scroll-with-animation="true">
           <view class="cu-card dynamic">
             <view class="cu-item">
               <view class="cu-list menu-avatar comment solids-top">
@@ -141,9 +142,12 @@ export default {
       allmore: false,
       apptmore: false,
       tabbar: [],
-      catgname: '',
-      active: 0,
+      catgname: ''
     }
+  },
+  created () {
+    // `this` 指向 vm 实例
+    console.log(process.env.NODE_ENV)
   },
   // TODO: 除特殊情况之外，不建议使用小程序生命周期钩子
   computed: {
@@ -166,13 +170,13 @@ export default {
         self.allpage = 0;
         self.allmore = true
       }
-      wx.showNavigationBarLoading()
       let param = {
         allPage: self.allpage
       }
+      wx.showNavigationBarLoading()
       // console.log(`getArtsList:`, param); //打印页数
       self.$store.dispatch('article/getAllArts', param).then(res => {
-        if (res.artList.length <= 1) {
+        if (res.artList.length <= 4) {
           self.allmore = false
         }
         if (init) {
@@ -198,8 +202,8 @@ export default {
     getApptCatg (chgcatg, init) {
       let self = this;
       if (init === true) {
-        self.page = 0
-        self.apptmore = true
+        self.page = 0;
+        self.apptmore = true;
       }
       let param = {
         catg: chgcatg,
@@ -208,7 +212,7 @@ export default {
       wx.showNavigationBarLoading()
       // console.log(`getApptCatg:`, param);//打印页数及指定标签栏
       self.$store.dispatch('article/getApptCatgLists', param).then(res => {
-        if (res.apptArtList.length <= 1) {
+        if (res.apptArtList.length <= 4) {
           self.apptmore = false
         }
         if (init) {
@@ -224,8 +228,8 @@ export default {
     // 切换指定tab标签页
     chgApptCatg (event) {
       let self = this;
-      let catg = event.mp.detail.title
-      self.catgname = catg
+      let catg = event.mp.detail.title;
+      self.catgname = catg;
       self.getApptCatg(catg, true);
     },
     // 触发全部文章scroll事件
@@ -268,7 +272,6 @@ export default {
       self.apptScrollTop = ''
     },
 
-
     // 上滑全部文章加载更多
     onAllToLower () {
       let self = this;
@@ -291,7 +294,7 @@ export default {
       self.page += 1
       setTimeout(() => {
         self.getApptCatg()
-      }, 100)
+      }, 500)
     },
 
     // 获取每个Title详情

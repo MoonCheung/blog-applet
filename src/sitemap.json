@@ -1,0 +1,11 @@
+{
+  "rules":[{
+    "action": "allow",
+    "page": "pages/detail/main",
+    "params": ["id"],
+    "matching": "partial"
+  }, {
+    "action": "disallow",
+    "page": "*"
+  }]
+}

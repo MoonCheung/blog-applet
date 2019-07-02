@@ -5,8 +5,9 @@ const state = {
   allList: {},
   apptList: {},
   apptDeil: {},
-  addLike: {},
-  delLike: {}
+  chgLike: {},
+  apptId: '',
+  apptTitle: ''
 }
 
 const mutations = {
@@ -19,8 +20,14 @@ const mutations = {
   GET_ART_DETL (state, data) {
     state.apptDeil = data
   },
+  GET_ART_DETL_ID (state, data) {
+    state.apptId = data
+  },
+  GET_ART_DETL_TITLE (state, data) {
+    state.apptTitle = data
+  },
   POST_CHG_LIKE_ART (state, data) {
-    state.addLike = data
+    state.chgLike = data
   }
 }
 
@@ -60,6 +67,8 @@ const actions = {
         .getArtDetls(param)
         .then(res => {
           commit('GET_ART_DETL', res.ArtDeilData)
+          commit('GET_ART_DETL_ID', res.ArtDeilData.id)
+          commit('GET_ART_DETL_TITLE', res.ArtDeilData.title)
           resolve(res)
         })
         .catch(err => {

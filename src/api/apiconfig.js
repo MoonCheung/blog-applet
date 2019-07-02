@@ -4,7 +4,7 @@
  * @Github: https://github.com/MoonCheung
  * @Date: 2019-05-28 15:39:23
  * @LastEditors: MoonCheung
- * @LastEditTime: 2019-06-15 22:53:16
+ * @LastEditTime: 2019-07-02 21:33:05
  */
 
 const Fly = require('flyio/dist/npm/wx')
@@ -12,15 +12,15 @@ const fly = new Fly()
 // 设置超时
 fly.config.timeout = 7000
 
-// 根据开发环境返回接口url
-const PROD_SERVIC = 'https://api.ikmoons.com/'
-const DEV_SERVIC = 'http://127.0.0.1:3030/api/'
+// 根据环境平台返回接口url
+const PROD_SERVIC = 'https://api.ikmoons.com/api/'
+// const DEV_SERVIC = 'http://127.0.0.1:3030/api/'
 
-if (process.env.NODE_ENV === 'production') {
-  fly.config.baseURL = PROD_SERVIC
-} else {
-  fly.config.baseURL = DEV_SERVIC
-}
+// if (process.env.NODE_ENV === 'production') {
+fly.config.baseURL = PROD_SERVIC
+// } else {
+// fly.config.baseURL = DEV_SERVIC
+// }
 
 // 添加请求拦截器
 fly.interceptors.request.use(

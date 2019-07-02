@@ -4,7 +4,7 @@
  * @Github: https://github.com/MoonCheung
  * @Date: 2019-05-28 15:39:23
  * @LastEditors: MoonCheung
- * @LastEditTime: 2019-06-15 23:01:29
+ * @LastEditTime: 2019-06-18 17:40:58
  */
 
 function formatNumber (n) {
@@ -66,6 +66,5 @@ export default {
   getStorageSync,
   setStorageSync,
   showLoading,
-  hideLoading,
-  showNotify
+  hideLoading
 }

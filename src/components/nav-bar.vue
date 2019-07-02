@@ -87,9 +87,9 @@ export default {
   },
   methods: {
     BackPage () {
-      wx.navigateBack({
-        delta: 1
-      });
+      let self = this;
+      // 关闭当前页面，返回上一页面
+      self.$router.back(1);
     }
   },
 }
