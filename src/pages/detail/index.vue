@@ -2,7 +2,8 @@
   <view>
     <nav-bar bgColor="bg-rivercity"
              :isBack="true"
-             :isWave="false">
+             :isWave="false"
+             @onNavBar="goNavBack">
       <template slot="content">详情</template>
     </nav-bar>
     <scroll-view class="my-detlScroll"
@@ -74,7 +75,7 @@
     </scroll-view>
     <!-- 固定home以及scroll位置 -->
     <view class="my-homeWidget"
-          @click="goHome">
+          @click="goTabBack">
       <view class="my-goHome">
         <text class="text-lg text-gray cuIcon-homefill"></text>
       </view>
@@ -133,7 +134,7 @@ export default {
     if (res.from !== "button") return false;
     return {
       title: title,
-      path: `/pages/detail/main?id=${id}`,
+      path: `/pages/detail/main?id=${id}&isshare=1`,
     }
   },
   computed: {
@@ -146,21 +147,24 @@ export default {
       shareTitle: 'apptTitle'
     })
   },
-  beforeMount () {
-    console.log('hello beforeMount')
-    this.aldyLikeArt();
-  },
   mounted () {
     this.getArtDetl();
+    this.aldyLikeArt();
   },
   methods: {
-    //指定ID文章详情接口
+    goNavBack (data) {
+      // 切换至 tabBar 页面
+      this.$router.push({
+        path: data,
+        isTab: true
+      })
+    },
+    // 指定ID文章详情接口
     getArtDetl () {
       let self = this;
-      let id = self.$route.query.id
+      let id = self.$route.query.id;
       self.isLiked = false;
       self.$store.dispatch('article/getArtDetls', { id }).then(res => {
-        let uid;
         if (res.code === 1) {
           self.apptId = res.ArtDeilData.id
           self.title = res.ArtDeilData.title
@@ -172,31 +176,23 @@ export default {
           let myDate = new Date(res.ArtDeilData.cdate)
           let formatDate = formatTime(myDate).split(' ')[0];
           self.cdate = formatDate;
-          // if (self.isLiked == 'true') {
-          //   likeSts.push(res.ArtDeilData.id)
-          //   wx.setStorageSync('like', likeSts);
-          // }
         }
       })
     },
+    // 已点赞状态的详情文章，aldy 缩写英文:already
     aldyLikeArt () {
       let self = this;
       let id = self.$route.query.id;
-      let isShow = self.isLiked  //false
+      let isShow = self.isLiked  //默认false
       let cookie_id = wx.getStorageSync('like') || [];
-      // if (cookie_id.includes(id)) {
       for (let j in cookie_id) {
-        // console.log(`for遍历:`, cookie_id[j]);
-        // console.log(`指定文章详情:`, id);
-        // console.log(`isShow:`, isShow)
-        if (cookie_id[j] === id) {
+        if (cookie_id[j] == id) {
           isShow = true;
           self.isLiked = isShow;
         }
       }
-      // }
     },
-    // 改变点赞文章状态接口
+    // 改变点赞状态的详情文章
     showLike (event) {
       //第二次改变点赞文章状态
       let self = this;
@@ -209,7 +205,6 @@ export default {
         // 已经点赞过，取消点赞
         if (cookie_id.includes(item_id)) {
           for (let j in cookie_id) {
-            console.log(`来自cookie_id的遍历`, cookie_id[j])
             if (cookie_id[j] == item_id) {
               cookie_id.splice(j, 1) //删除取消点赞的ID
             }
@@ -217,12 +212,11 @@ export default {
           num -= 1; //点赞数减一
           isShow = false;
           self.isLiked = isShow;
-          // self.like = num;
           let param = {
             id: item_id,
             like: num
           }
-          console.log(`-1`, param)
+          // console.log(`-1`, param)
           wx.setStorageSync('like', cookie_id);
           //后台交互，后台数据同步
           self.$store.dispatch('article/chgLikeArt', param).then((res) => {
@@ -234,12 +228,11 @@ export default {
           num += 1; //点赞数加一
           isShow = true;
           self.isLiked = isShow;
-          // self.like = num;
           let param = {
             id: item_id,
             like: num
           }
-          console.log(`+1`, param)
+          // console.log(`+1`, param)
           //来自微信小程序的Storage
           cookie_id.unshift(item_id);   //新增赞的开头的id
           wx.setStorageSync('like', cookie_id);
@@ -252,9 +245,12 @@ export default {
         }
       }
     },
-    // 跳转到home页面
-    goHome () {
-      this.$router.back(1);
+    // 跳转到tabbar页面
+    goTabBack () {
+      this.$router.push({
+        path: '../index/main',
+        isTab: true
+      });
     },
     // 触发详情文章scroll事件
     onDetlScroll (e) {
@@ -265,7 +261,7 @@ export default {
         self.detlfloor = false;
       }
     },
-    //触发scroll返回到顶部
+    // 触发scroll返回到顶部
     goDetlTop () {
       let self = this;
       self.detlScrollTop = 0;

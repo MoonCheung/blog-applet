@@ -6,6 +6,7 @@
             :style="style"
             :class="[bgImage!=''?'none-bg text-white bg-img':'',bgColor]">
         <view class="action"
+              :data-share="isshare"
               @click="BackPage"
               v-if="isBack">
           <text class="cuIcon-back"></text>
@@ -33,7 +34,9 @@ export default {
     return {
       StatusBar: '',
       CustomBar: '',
-      Custom: ''
+      Custom: '',
+      isshare: 0,
+      preRouter: '../index/main' // TODO: 相对路径，注意文件的层级关系
     }
   },
   props: {
@@ -53,6 +56,12 @@ export default {
       type: [Boolean],
       default: false
     }
+  },
+  //监听页面加载
+  onLoad () {
+    let self = this;
+    let query = self.$root.$mp.query
+    self.isshare = query.isshare
   },
   //计算属性，用来数据结果被缓存
   computed: {
@@ -86,10 +95,17 @@ export default {
     });
   },
   methods: {
-    BackPage () {
+    // 返回路由
+    BackPage (event) {
       let self = this;
-      // 关闭当前页面，返回上一页面
-      self.$router.back(1);
+      let share = event.mp.currentTarget.dataset.share
+      // 判断是否有分享页面，有则返回首页
+      if (Object.is(share, self.isshare)) {
+        self.$emit('onNavBar', self.preRouter)
+      } else {
+        // 关闭当前页面，返回上一页面
+        self.$router.back(1);
+      }
     }
   },
 }

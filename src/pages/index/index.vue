@@ -142,7 +142,7 @@ export default {
       allmore: false,
       apptmore: false,
       tabbar: [],
-      catgname: ''
+      catgname: '',
     }
   },
   created () {
