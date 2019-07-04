@@ -64,6 +64,16 @@
             <view class="cu-bar btn-group">
               <!-- 暂时开发复制网址功能 -->
               <!-- <button class="cu-btn bg-blue shadow-blur round">复制网址</button> -->
+              <button class="cu-btn bg-blue shadow-blur round">
+                <navigator class="my-admire"
+                           open-type="navigate"
+                           target="miniProgram"
+                           @fail="admireFail"
+                           @success="admireSuc"
+                           version="develop"
+                           app-id="wx18a2ac992306a5a4"
+                           path="pages/apps/largess/detail?id=DwzS6ATbps0%3D">赞赏</navigator>
+              </button>
               <button open-type="share"
                       :data-id="shareId"
                       :data-title="shareTitle"
@@ -152,6 +162,13 @@ export default {
     this.aldyLikeArt();
   },
   methods: {
+    admireFail (err) {
+      console.log(err);
+    },
+    admireSuc (res) {
+      console.log(res);
+    },
+    // 返回index tabber页面
     goNavBack (data) {
       // 切换至 tabBar 页面
       this.$router.push({
