@@ -1,7 +1,7 @@
 <template>
   <view>
     <nav-bar bgColor="myNavBar"
-             bgImage="/static/images/me.jpeg"
+             bgImage="https://img.ikmoons.com/bg.jpeg"
              :isBack="false"
              :isWave="true">
       <template slot="content">
@@ -62,6 +62,7 @@ export default {
     }
   },
   methods: {
+    // 复制github方法
     CopyUrl: function () {
       wx.setClipboardData({
         data: this.GithubUrl,
@@ -72,6 +73,7 @@ export default {
         }
       })
     },
+    // 跳转到关于我页面的
     toSelfIntro () {
       this.$router.push({
         path: '/pages/intro/main'
@@ -79,7 +81,6 @@ export default {
     },
     //登录头像
     toLogin () { },
-
   }
 }
 </script>

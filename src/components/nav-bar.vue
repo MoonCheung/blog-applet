@@ -20,7 +20,7 @@
       </view>
       <view v-show="isWave">
         <image class="gif-black response git-wave"
-               src="/static/images/wave.gif"
+               src="/static/img/wave.gif"
                mode="scaleToFill"></image>
       </view>
     </view>
@@ -100,7 +100,7 @@ export default {
       let self = this;
       let share = event.mp.currentTarget.dataset.share
       // 判断是否有分享页面，有则返回首页
-      if (Object.is(share, self.isshare)) {
+      if (Object.is(share, '1')) {
         self.$emit('onNavBar', self.preRouter)
       } else {
         // 关闭当前页面，返回上一页面
