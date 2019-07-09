@@ -10,6 +10,8 @@ import './colorui/main.wxss'
 
 Vue.use(MpvueRouterPatch)
 Vue.prototype.$store = store
+
+Vue.config._mpTrace = true
 Vue.config.productionTip = false
 
 App.mpType = 'app'

@@ -1,9 +1,9 @@
 # mpvue-applet
 
-[![GitHub stars](https://img.shields.io/github/stars/MoonCheung/vue-applet.svg?style=flat-square)](https://github.com/MoonCheung/vue-applet/stargazers)
-[![GitHub issues](https://img.shields.io/github/issues/MoonCheung/vue-applet.svg?style=flat-square)](https://github.com/MoonCheung/vue-applet/issues)
-[![GitHub forks](https://img.shields.io/github/forks/MoonCheung/vue-applet.svg?style=flat-square)](https://github.com/MoonCheung/vue-applet/network)
-[![GitHub license](https://img.shields.io/github/license/MoonCheung/vue-applet.svg?style=flat-square)](https://github.com/MoonCheung/vue-applet/blob/master/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/MoonCheung/blog-applet.svg?style=flat-square)](https://github.com/MoonCheung/blog-applet/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/MoonCheung/blog-applet.svg?style=flat-square)](https://github.com/MoonCheung/blog-applet/issues)
+[![GitHub forks](https://img.shields.io/github/forks/MoonCheung/blog-applet.svg?style=flat-square)](https://github.com/MoonCheung/blog-applet/network)
+[![GitHub license](https://img.shields.io/github/license/MoonCheung/blog-applet.svg?style=flat-square)](https://github.com/MoonCheung/blog-applet/blob/master/LICENSE)
 
 这是 `mpvue` 博客小程序由 `vue`,`vant-weapp`,`ColorUI` 构建应用程序开发的 <br/>
 该博客小程序的 API 接口需要搭配 node 服务器才能运行,想运行时,需要来安装 node 服务器 <br/>
@@ -38,7 +38,7 @@
 
 ```bash
 # 提前下载项目之后，然后进入目录
-cd vue-applet
+cd blog-applet
 
 # 然后安装node_modules
 npm install

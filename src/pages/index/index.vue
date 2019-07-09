@@ -7,11 +7,11 @@
     </nav-bar>
     <van-tabs ref="change"
               custom-class="tab-header"
-              swipeable
-              animated
               color="#1976D2"
+              sticky="true"
               swipeable="true"
-              @change.prevent="chgApptCatg($event)">
+              animated="true"
+              @change.stop.prevent="chgApptCatg($event)">
       <van-tab :title="allTab">
         <scroll-view class="my-scroll"
                      scroll-y="true"

@@ -20,7 +20,7 @@
       </view>
       <view v-show="isWave">
         <image class="gif-black response git-wave"
-               src="/static/img/wave.gif"
+               src="/static/img/wave-min.gif"
                mode="scaleToFill"></image>
       </view>
     </view>

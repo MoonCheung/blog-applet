@@ -4,7 +4,7 @@
  * @Github: https://github.com/MoonCheung
  * @Date: 2019-05-28 15:39:23
  * @LastEditors: MoonCheung
- * @LastEditTime: 2019-07-04 17:49:08
+ * @LastEditTime: 2019-07-06 23:09:00
  */
 
 const Fly = require('flyio/dist/npm/wx')
