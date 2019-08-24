@@ -4,7 +4,7 @@
  * @Github: https://github.com/MoonCheung
  * @Date: 2019-08-10 14:28:50
  * @LastEditors: MoonCheung
- * @LastEditTime: 2019-08-24 14:09:05
+ * @LastEditTime: 2019-08-24 14:15:15
  -->
 
 # mpvue-applet
@@ -24,22 +24,22 @@
 
 ### 引入 Fly.js 的 HTTP 网络库使用
 
-- 放弃使用官方微信小程序自带发送请求 wx.request
-- 某文件添加 request 拦截器,response 拦截器属性
-- 为了单一文件里面放置 API 接口，以便调用
+* 放弃使用官方微信小程序自带发送请求 wx.request
+* 某文件添加 request 拦截器,response 拦截器属性
+* 为了单一文件里面放置 API 接口，以便调用
 
 ### 将 RESTful API 接口放入 Vuex 状态管理使用
 
-- 因为小程序内部不支持手动刷新，为 Vuex 将 API 接口存储提供的
-- 小程序本身没有像浏览器的 vue Devtools 插件可调试，Vuex 内置有日志插件，需手动添加的
-- 通过 main.js 引入 store.js 实例化，同时 Vue 的原型上需手动添加\$store 属性指向 store 对象
+* 因为小程序内部不支持手动刷新，为 Vuex 将 API 接口存储提供的
+* 小程序本身没有像浏览器的 vue Devtools 插件可调试，Vuex 内置有日志插件，需手动添加的
+* 通过 main.js 引入 store.js 实例化，同时 Vue 的原型上需手动添加\$store 属性指向 store 对象
 
 ## 应用功能
 
-- [x] 文章列表
-- [x] 文章详情
-- [x] 点赞功能
-- [x] 页面滚动
+* [x] 文章列表
+* [x] 文章详情
+* [x] 点赞功能
+* [x] 页面滚动
 
 ## 执行命令
 
