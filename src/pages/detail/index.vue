@@ -64,7 +64,7 @@
             <view class="cu-bar btn-group">
               <!-- 暂时开发复制网址功能 -->
               <!-- <button class="cu-btn bg-blue shadow-blur round">复制网址</button> -->
-              <button class="cu-btn bg-blue shadow-blur round">
+              <button class="cu-btn bg-blue shadow-blur round my-btn">
                 <navigator class="my-admire"
                            open-type="navigate"
                            target="miniProgram"
@@ -77,7 +77,7 @@
               <button open-type="share"
                       :data-id="shareId"
                       :data-title="shareTitle"
-                      class="cu-btn bg-blue shadow-blur round">分享</button>
+                      class="cu-btn bg-blue shadow-blur round my-btn my-share">分享</button>
             </view>
           </view>
         </view>
