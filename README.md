@@ -4,7 +4,7 @@
  * @Github: https://github.com/MoonCheung
  * @Date: 2019-08-10 14:28:50
  * @LastEditors: MoonCheung
- * @LastEditTime: 2019-08-25 15:43:07
+ * @LastEditTime: 2019-08-29 22:02:12
  -->
 
 # mpvue-applet
@@ -43,7 +43,7 @@
 
 ## 小程序码
 
-![MoonBlogs](https://github.com/MoonCheung/blog-applet/tree/master/static/img/MoonBlogs.jpg)
+![MoonBlogs](https://github.com/MoonCheung/blog-applet/raw/master/static/img/MoonBlogs.jpg)
 
 ## 执行命令
 
