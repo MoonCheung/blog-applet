@@ -6,14 +6,15 @@
       <template slot="content">MoonBlogs</template>
     </nav-bar>
     <van-tabs ref="change"
-              custom-class="tab-header"
+              custom-class="my-custTabs"
+              nav-class="my-navTabs"
               color="#1976D2"
               sticky="true"
               swipeable="true"
               animated="true"
               @change.stop.prevent="chgApptCatg($event)">
       <van-tab :title="allTab">
-        <scroll-view class="my-scroll"
+        <scroll-view :style="{ height: scrollHeight + 'px'}"
                      scroll-y="true"
                      lower-threshold="50"
                      @scroll="onAllScroll"
@@ -66,7 +67,7 @@
       <van-tab v-for="(item,index) in tabbar"
                :title="item.categoryname"
                :key="index">
-        <scroll-view class="my-scroll"
+        <scroll-view :style="{ height: scrollHeight + 'px'}"
                      scroll-y="true"
                      lower-threshold="50"
                      @scroll="onApptScroll"
@@ -111,7 +112,7 @@
         <view class="my-widget"
               @click="goApptTop"
               v-show="apptfloor">
-          <view class="my-goTop">
+          <view class="my-goApptTop">
             <text class="text-lg text-gray cuIcon-fold"></text>
           </view>
         </view>
@@ -122,6 +123,7 @@
 
 <script>
 import NavBar from '@/components/nav-bar'
+import './index.scss'
 
 export default {
   name: "ArtList",
@@ -143,7 +145,19 @@ export default {
       apptmore: false,
       tabbar: [],
       catgname: '',
+      navTabHeight: 64, //导航栏
+      navtabsHeight: 44, //导航选项卡
+      scrollHeight: null
     }
+  },
+  onShow () {
+    let self = this;
+    wx.getSystemInfo({
+      success: function (res) {
+        let height = self.navTabHeight + self.navtabsHeight
+        self.scrollHeight = res.windowHeight - height
+      }
+    })
   },
   created () {
     // `this` 指向 vm 实例
@@ -287,13 +301,14 @@ export default {
     // 上滑指定标签文章加载更多
     onApptToLower () {
       let self = this;
+      let catg = self.catgname;
       let apptLoadMore = self.apptmore;
       if (!apptLoadMore) {
         return true;
       }
       self.page += 1
       setTimeout(() => {
-        self.getApptCatg()
+        self.getApptCatg(catg)
       }, 500)
     },
 
@@ -328,62 +343,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss">
-.bg-happyfisher {
-  background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
-  color: #fff;
-}
-.tab-header {
-  top: -1px;
-}
-// scroll-view滚动样式
-.my-scroll {
-  height: 100vh;
-}
-// 返回顶部
-.my {
-  &-widget {
-    position: fixed;
-    bottom: 62.5px;
-    right: 15px;
-    overflow: hidden;
-    z-index: 500;
-
-    .my-goTop {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background-color: rgba(0, 0, 0, 0.5);
-    }
-  }
-}
-
-.content {
-  .text-mycut {
-    display: -webkit-box;
-    word-break: break-all;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-  }
-}
-.solids-top {
-  background-color: #f1f1f1;
-
-  .cardList {
-    &:first-of-type {
-      margin-top: 0;
-    }
-    margin-top: 10px;
-  }
-  .radius {
-    border-radius: 6px;
-  }
-}
-</style>

@@ -6,7 +6,7 @@
              @onNavBar="goNavBack">
       <template slot="content">详情</template>
     </nav-bar>
-    <scroll-view class="my-detlScroll"
+    <scroll-view :style="{ height: detlSrollHeight + 'px'}"
                  scroll-y="true"
                  @scroll="onDetlScroll"
                  :scroll-top="detlScrollTop"
@@ -117,6 +117,8 @@ export default {
   data () {
     return {
       detlScrollTop: '',
+      footerHeight: 48,
+      detlSrollHeight: null,
       detlfloor: false,
       title: '',
       content: '',
@@ -131,10 +133,16 @@ export default {
   },
   //监听页面显示
   onShow () {
+    let self = this;
     wx.showShareMenu({
       // 要求小程序返回分享目标信息
       withShareTicket: true
     });
+    wx.getSystemInfo({
+      success: function (res) {
+        self.detlSrollHeight = res.windowHeight - self.footerHeight
+      }
+    })
   },
   // 转发分享功能
   onShareAppMessage: (res) => {

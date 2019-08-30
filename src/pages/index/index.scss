@@ -1,0 +1,79 @@
+/*
+ * @Description: 首页样式
+ * @Author: MoonCheung
+ * @Github: https://github.com/MoonCheung
+ * @Date: 2019-08-31 00:55:27
+ * @LastEditors: MoonCheung
+ * @LastEditTime: 2019-08-31 01:00:58
+ */
+
+.bg-happyfisher {
+  background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
+  color: #fff;
+}
+.my-custTabs {
+  top: -1px;
+}
+
+//TODO: 等会删除
+// scroll-view滚动样式
+// .my-scroll {
+//   height: 100vh;
+// }
+
+// 返回顶部
+.my {
+  &-widget {
+    position: fixed;
+    bottom: 62.5px;
+    right: 15px;
+    overflow: hidden;
+    z-index: 500;
+
+    .my-goTop {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .my-goApptTop{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: rgba(0, 0, 0, 0.15);
+    }
+  }
+}
+
+.content {
+  .text-mycut {
+    display: -webkit-box;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+}
+.solids-top {
+  background-color: #f1f1f1;
+
+  .cardList {
+    &:first-of-type {
+      margin-top: 0;
+    }
+    margin-top: 10px;
+  }
+  .radius {
+    border-radius: 6px;
+  }
+}
