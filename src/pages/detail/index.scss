@@ -4,7 +4,7 @@
  * @Github: https://github.com/MoonCheung
  * @Date: 2019-06-08 15:04:02
  * @LastEditors: MoonCheung
- * @LastEditTime: 2019-08-29 21:19:10
+ * @LastEditTime: 2019-08-30 13:01:11
  */
 
 // 赞赏或者分享按钮
@@ -13,8 +13,10 @@
     padding: 0;
 
     .my-admire {
-      height: 30px;
-      line-height: 30px;
+      height: 32px;
+      line-height: 32px;
+      width: 85%;
+      min-width: 85%;
     }
   }
 
@@ -34,7 +36,8 @@
 }
 
 .my-detlScroll {
-  max-height: 100vh;
+  height: 100%;
+  max-height: 100%;
 }
 
 // 固定home以及scroll位置

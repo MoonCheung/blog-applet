@@ -1,7 +1,7 @@
 <template>
   <view>
     <nav-bar bgColor="myNavBar"
-             bgImage="https://img.ikmoons.com/bg.jpeg"
+             bgImage="https://static.ikmoons.com/bg.jpeg"
              :isBack="false"
              :isWave="true">
       <template slot="content">
