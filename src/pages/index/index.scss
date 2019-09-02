@@ -4,22 +4,18 @@
  * @Github: https://github.com/MoonCheung
  * @Date: 2019-08-31 00:55:27
  * @LastEditors: MoonCheung
- * @LastEditTime: 2019-08-31 01:00:58
+ * @LastEditTime: 2019-08-31 01:20:00
  */
 
 .bg-happyfisher {
   background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
   color: #fff;
 }
+
+// 标签页
 .my-custTabs {
   top: -1px;
 }
-
-//TODO: 等会删除
-// scroll-view滚动样式
-// .my-scroll {
-//   height: 100vh;
-// }
 
 // 返回顶部
 .my {
@@ -41,7 +37,7 @@
       background-color: rgba(0, 0, 0, 0.5);
     }
 
-    .my-goApptTop{
+    .my-goApptTop {
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -64,6 +60,7 @@
     -webkit-line-clamp: 2;
   }
 }
+
 .solids-top {
   background-color: #f1f1f1;
 
@@ -71,8 +68,10 @@
     &:first-of-type {
       margin-top: 0;
     }
+
     margin-top: 10px;
   }
+
   .radius {
     border-radius: 6px;
   }
