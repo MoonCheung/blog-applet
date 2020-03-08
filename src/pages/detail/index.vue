@@ -104,6 +104,7 @@
 import { mapGetters } from 'vuex'
 import NavBar from '@/components/nav-bar'
 import { formatTime } from '@/utils/index'
+import marked from 'marked'
 import wxParse from 'mpvue-wxparse'
 import 'mpvue-wxparse/src/wxParse.css'
 import './index.scss'
@@ -196,7 +197,7 @@ export default {
           self.catg = res.ArtDeilData.catg
           self.pv = res.ArtDeilData.pv
           self.like = res.ArtDeilData.like
-          self.content = res.ArtDeilData.content
+          self.content = marked(res.ArtDeilData.content)
           self.tag = res.ArtDeilData.tag;
           let myDate = new Date(res.ArtDeilData.cdate)
           let formatDate = formatTime(myDate).split(' ')[0];

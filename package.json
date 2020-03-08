@@ -1,6 +1,6 @@
 {
   "name": "mpvue-applet",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "mpvueTemplateProjectVersion": "0.1.0",
   "description": "A Mpvue project",
   "author": "MoonCheung <Salvador23@163.com>",
@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "flyio": "^0.6.14",
+    "marked": "^0.8.0",
     "mpvue": "^2.0.6",
     "mpvue-router-patch": "^2.0.0",
     "mpvue-wxparse": "^0.6.5",
